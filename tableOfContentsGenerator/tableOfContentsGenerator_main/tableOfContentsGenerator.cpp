@@ -22,3 +22,41 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
     }
 
 }
+
+void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& openTagHeadersPos)
+{
+    static QRegularExpression openTagHeader("<h([1-6])[^>]*>.*?(?!(?:<h([1-6])[^>]*>))", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatchIterator matchIterator = openTagHeader.globalMatch(htmlCode);
+    QRegularExpressionMatch match;
+
+    // Для каждого найденного открывающего h заголовок тега...
+    matchIterator = openTagHeader.globalMatch(htmlCode);
+    while (matchIterator.hasNext())
+    {
+        // Сохранить позицию найденного открывающего h заголовок тега в контейнер
+        match = matchIterator.next();
+        openTagHeadersPos.append(match.capturedStart());
+    }
+
+    // Для всех корректно заданных h заголовков...
+    for(int i = 0; i < headersList.count(); i++)
+    {
+        // Если позиция открывающего корректно заданного h заголовка тега совпадает с позицией найденного открывающего h заголовок тега...
+        if(openTagHeadersPos.contains(headersList.at(i).startPos))
+        {
+            qDebug() << headersList.at(i).rawData;
+            // Удалить позицию найденного открывающего h заголовок тега из контейнера с найденными позициями открывающих h заголовки тегов
+            openTagHeadersPos.removeAt(openTagHeadersPos.indexOf(headersList.at(i).startPos));
+        }
+    }
+
+    for(int i=0; i<openTagHeadersPos.count();i++)
+    {
+        qDebug() << openTagHeadersPos.at(i);
+    }
+}
+
+void findHeaders (const QString& htmlCode, QList<Header>& headersList)
+{
+
+}
