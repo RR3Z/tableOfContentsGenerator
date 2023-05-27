@@ -54,7 +54,7 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList);
 * \Найти h заголовки, для которых отсутствует закрывающий тег (в том числе задокумментированные)
 * \param[in] htmlCode - строка с HTML-кодом
 * \param[in] headersList - контейнер с h заголовками
-* \param[in,out] openTagHeadersPos - контейнер, в котором хранятся позиции открывающих h заголовки тегов
+* \param[in,out] openTagHeadersPos - контейнер, в котором хранятся позиции h заголовков без закрывающих тегов
 */
 void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& openTagHeadersPos);
 
@@ -62,9 +62,9 @@ void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& he
 * \Найти h заголовки, для которых отсутствует открывающий тег (в том числе задокумментированные)
 * \param[in] htmlCode - строка с HTML-кодом
 * \param[in] headersList - контейнер с h заголовками
-* \param[in,out] headersPosWithoutOpeningTag - контейнер, в котором хранятся позиции заголовков, для которых отсутствует открывающий их тег
+* \param[in,out] closeTagHeadersPos - контейнер, в котором хранятся позиции h заголовков без открывающих тегов
 */
-void findHeadersWithoutOpeningTag(const QString& htmlCode, const QList<Header>& headersList, QList<int>& headersPosWithoutOpeningTag);
+void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& closeTagHeadersPos);
 
 /*!
 * \Найти все комментарии в HTML-коде
