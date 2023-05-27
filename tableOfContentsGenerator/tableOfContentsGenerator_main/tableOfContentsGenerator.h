@@ -14,7 +14,7 @@ struct Header
     int startPos;
     int endPos;
 
-    //! Оператор перегрузки, для сравнения двух Header (используется при тестировании функции findHeaders)
+    //! Оператор перегрузки, для сравнения двух Header (используется при тестировании)
     bool operator == (const Header& other) const
     {
         return level == other.level &&
@@ -49,3 +49,11 @@ void findHeaders (const QString& htmlCode, QList<Header>& headersList);
 * \param[in,out] headersList - контейнер, куда будут сохраняться найденные h заголовки
 */
 void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList);
+
+/*!
+* \Найти h заголовки, для которых отсутствует закрывающий тег (в том числе задокумментированные)
+* \param[in] htmlCode - строка с HTML-кодом
+* \param[in] headersList - контейнер с h заголовками
+* \param[in,out] missingClosingTagHeadersPos - контейнер, в котором хранятся позиции заголовков, для которых отсутствует закрывающий их тег
+*/
+void findHeadersWithoutClosingTag(const QString& htmlCode, const QList<Header>& headersList, QList<int>& missingClosingTagHeadersPos);
