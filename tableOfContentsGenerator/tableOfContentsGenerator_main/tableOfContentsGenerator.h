@@ -54,9 +54,9 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList);
 * \Найти h заголовки, для которых отсутствует закрывающий тег (в том числе задокумментированные)
 * \param[in] htmlCode - строка с HTML-кодом
 * \param[in] headersList - контейнер с h заголовками
-* \param[in,out] headersPosWithoutClosingTag - контейнер, в котором хранятся позиции заголовков, для которых отсутствует закрывающий их тег
+* \param[in,out] openTagHeadersPos - контейнер, в котором хранятся позиции открывающих h заголовки тегов
 */
-void findHeadersWithoutClosingTag(const QString& htmlCode, const QList<Header>& headersList, QList<int>& headersPosWithoutClosingTag);
+void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& openTagHeadersPos);
 
 /*!
 * \Найти h заголовки, для которых отсутствует открывающий тег (в том числе задокумментированные)
