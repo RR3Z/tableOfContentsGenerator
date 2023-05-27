@@ -32,3 +32,10 @@ struct Comment
 * \throw - выбрасывает исключения в случае ошибок
 */
 void findHeaders (const QString& htmlCode, QList<Header>& headersList);
+
+/*!
+* \Найти корректно заданные h заголовки (в том числе задокумментированные)
+* \param[in] htmlCode - строка с HTML-кодом
+* \param[in,out] headersList - контейнер, куда будут сохраняться найденные h заголовки
+*/
+void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList);
