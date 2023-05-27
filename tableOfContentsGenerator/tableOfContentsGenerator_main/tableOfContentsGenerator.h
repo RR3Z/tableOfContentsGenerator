@@ -72,3 +72,10 @@ void findHeadersWithoutOpeningTag(const QString& htmlCode, const QList<Header>& 
 * \param[in,out] commentsList - контейнер с найденными комментариями
 */
 void findAllComments(const QString& htmlCode, QList<Comment>& commentsList);
+
+/*!
+* \Удалить задокументированные корректно заданные h заголовки из контейнера с найденными h заголовками
+* \param[in,out] comments - контейнер с комментариями
+* \param[in,out] container - контейнер c найденными h заголовками, который чистят от задокументированных корректно заданных h заголовков
+*/
+void removeCommentedCorrectHeaders(QList<Comment>& comments, QList<Header>& headers);
