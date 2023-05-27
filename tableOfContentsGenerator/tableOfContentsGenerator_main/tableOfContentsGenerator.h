@@ -65,3 +65,10 @@ void findHeadersWithoutClosingTag(const QString& htmlCode, const QList<Header>& 
 * \param[in,out] missingOpeningTagHeadersPos - контейнер, в котором хранятся позиции заголовков, для которых отсутствует открывающий их тег
 */
 void findHeadersWithoutOpeningTag(const QString& htmlCode, const QList<Header>& headersList, QList<int>& missingOpeningTagHeadersPos);
+
+/*!
+* \Найти все комментарии в HTML-коде
+* \param[in] htmlCode - строка с HTML-кодом
+* \param[in,out] commentsList - контейнер с найденными комментариями
+*/
+void findAllComments(const QString& htmlCode, QList<Comment>& commentsList);
