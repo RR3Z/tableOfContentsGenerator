@@ -16,6 +16,16 @@ struct Header
 };
 
 /*!
+* \Структура для хранения информации о комментариях
+*/
+struct Comment
+{
+    QString rawData;
+    int startPos;
+    int endPos;
+};
+
+/*!
 * \Найти h заголовки в HTML-коде
 * \param[in] htmlCode - строка с HTML-кодом
 * \param[in,out] headersList - контейнер с h заголовками
