@@ -79,3 +79,10 @@ void findAllComments(const QString& htmlCode, QList<Comment>& commentsList);
 * \param[in,out] headers - контейнер c найденными h заголовками, который чистят от задокументированных корректно заданных h заголовков
 */
 void removeCommentedCorrectHeaders(QList<Comment>& comments, QList<Header>& headers);
+
+/*!
+* \Удалить задокументированные h заголовки без закрывающего их тега из контейнера с позициями открывающих h заголовки тегов
+* \param[in,out] commentsList - контейнер с комментариями
+* \param[in,out] headersPosWithoutClosingTag - контейнер c позициями открывающих h заголовки тегов, для которых отсутствуют закрывающие h заголовки теги
+*/
+void removeCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutClosingTag);
