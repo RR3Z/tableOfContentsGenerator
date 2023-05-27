@@ -30,6 +30,7 @@ private slots:
     void nestedHeaderInComment();
     void correctHeaderAndHeaderWithoutOpeningTag();
     void correctHeaderAndHeaderWithoutClosingTag();
+    void correctHeaderWithAttrubutes();
 };
 
 void findHeaders_tests::headersAreAvailable()
@@ -549,6 +550,25 @@ void findHeaders_tests::nestedHeaderInComment()
     header.rawData = "<h1>Header</h1>";
     header.startPos = 6;
     header.endPos = 20;
+    expectedHeadersList.append(header);
+
+    findHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findHeaders_tests::correctHeaderWithAttrubutes()
+{
+    QString htmlCode = "<html><h6 class=\"subheader\" data=\"info\" style=\"color: red\">H6</h6></html>";
+    QList<Header> headersList;
+
+    QList<Header> expectedHeadersList = {};
+    Header header;
+    header.level = 6;
+    header.content = "H6";
+    header.rawData = "<h6 class=\"subheader\" data=\"info\" style=\"color: red\">H6</h6>";
+    header.startPos = 6;
+    header.endPos = 66;
     expectedHeadersList.append(header);
 
     findHeaders(htmlCode, headersList);
