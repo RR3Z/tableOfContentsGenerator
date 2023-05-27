@@ -44,15 +44,36 @@ void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& he
         // Если позиция открывающего корректно заданного h заголовка тега совпадает с позицией найденного открывающего h заголовок тега...
         if(openTagHeadersPos.contains(headersList.at(i).startPos))
         {
-            qDebug() << headersList.at(i).rawData;
             // Удалить позицию найденного открывающего h заголовок тега из контейнера с найденными позициями открывающих h заголовки тегов
             openTagHeadersPos.removeAt(openTagHeadersPos.indexOf(headersList.at(i).startPos));
         }
     }
+}
 
-    for(int i=0; i<openTagHeadersPos.count();i++)
+void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& closeTagHeadersPos)
+{
+    static QRegularExpression closeTagHeader("</h[1-6]>.*?(?!(?:<h/[1-6]>))", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatchIterator matchIterator = closeTagHeader.globalMatch(htmlCode);
+    QRegularExpressionMatch match;
+
+    // Для каждого найденного закрывающего h заголовок тега...
+    matchIterator = closeTagHeader.globalMatch(htmlCode);
+    while (matchIterator.hasNext())
     {
-        qDebug() << openTagHeadersPos.at(i);
+        // Сохранить позицию найденного закрывающего h заголовок тега в контейнер
+        match = matchIterator.next();
+        closeTagHeadersPos.append(match.capturedEnd() - 1);
+    }
+
+    // Для всех корректно заданных h заголовков...
+    for(int i = 0; i < headersList.count(); i++)
+    {
+        // Если позиция закрывающего корректно заданного h заголовка тега совпадает с позицией найденного закрывающего h заголовок тега...
+        if(closeTagHeadersPos.contains(headersList.at(i).endPos))
+        {
+            // Удалить позицию найденного закрывающего h заголовок тега из контейнера с найденными позициями закрывающих h заголовки тегов
+            closeTagHeadersPos.removeAt(closeTagHeadersPos.indexOf(headersList.at(i).endPos));
+        }
     }
 }
 
