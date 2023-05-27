@@ -93,3 +93,10 @@ void removeCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QList
 * \param[in,out] headersPosWithoutOpeningTag - контейнер c позициями закрывающих h заголовки тегов, для которых отсутствуют открывающие h заголовки теги
 */
 void removeCommentedHeadersWithoutOpeningTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutOpeningTag);
+
+/*!
+* \Проверить найденные h заголовки на вложенные в них h заголовки
+* \param[in] headersList - контейнер с найденными h заголовками
+* \throw - выбрасывает исключения в случае ошибок
+*/
+void checkForNestedHeaders(const QList<Header>& headersList);
