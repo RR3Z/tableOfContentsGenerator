@@ -13,6 +13,16 @@ struct Header
     QString content;
     int startPos;
     int endPos;
+
+    //! Оператор перегрузки, для сравнения двух Header (используется при тестировании функции findHeaders)
+    bool operator == (const Header& other) const
+    {
+        return level == other.level &&
+               rawData == other.rawData &&
+               content == other.content &&
+               startPos == other.startPos &&
+               endPos == other.endPos;
+    }
 };
 
 /*!
