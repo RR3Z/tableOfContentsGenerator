@@ -7,4 +7,5 @@ SUBDIRS += \
     findSeparateOpenTagHeaders_tests \
     findSeperateCloseTagHeaders_tests \
     getRidOfCommentedCorrectHeaders_tests \
+    getRidOfCommentedHeadersWithoutClosingTag_tests \
     tableOfContentsGenerator_main
