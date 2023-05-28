@@ -1,4 +1,4 @@
-#include "tableOfContentsGenerator.h"
+#include "findHeaders.h"
 
 void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 {
