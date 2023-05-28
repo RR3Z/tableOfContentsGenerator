@@ -143,6 +143,51 @@ void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>
     }
 }
 
+void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutClosingTag)
+{
+    static QRegularExpression openTagHeader("<h([1-6])[^>]*>", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatch match;
+    QList<int> commentedHeadersWithoutClosingTagPos;
+
+    // Для каждого комментария из контейнера commentsList...
+    for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
+    {
+        // Если текущий комментарий содержит в себе открывающий h заголовок тег и не был обработан...
+        match = openTagHeader.match(currentComment->rawData);
+        if(match.hasMatch() && currentComment->isProccessed == false)
+        {
+            // Сохранить позицию текущего открывающего h заголовок тега в HTML-коде в контейнер
+            commentedHeadersWithoutClosingTagPos.append(currentComment->startPos + match.capturedStart());
+            // Считать, что текущий комментарий обработан
+            currentComment->isProccessed = true;
+        }
+        // Иначе перейти к следующему комментарию
+        else {
+            ++currentComment;
+        }
+    }
+
+    // Если имеется хотя бы один h заголовок, для которого отсутствует закрывающий его тег...
+    if(commentedHeadersWithoutClosingTagPos.count() > 0)
+    {
+        // Для каждого h заголовка, у которого отсутствует закрывающий его тег...
+        for (QList<int>::iterator currentHeaderWithoutClosingTagPos = headersPosWithoutClosingTag.begin(); currentHeaderWithoutClosingTagPos != headersPosWithoutClosingTag.end(); )
+        {
+            // Если текущий h заголовок закомментирован...
+            if (commentedHeadersWithoutClosingTagPos.contains(*currentHeaderWithoutClosingTagPos))
+            {
+                // Удалить текущий h заголовок из контейнера headersPosWithoutClosingTag
+                currentHeaderWithoutClosingTagPos = headersPosWithoutClosingTag.erase(currentHeaderWithoutClosingTagPos);
+            }
+            // Иначе перейти к следующему h заголовку...
+            else
+            {
+                ++currentHeaderWithoutClosingTagPos;
+            }
+        }
+    }
+}
+
 void findHeaders (const QString& htmlCode, QList<Header>& headersList)
 {
 
