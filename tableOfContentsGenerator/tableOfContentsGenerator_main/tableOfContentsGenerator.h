@@ -33,6 +33,14 @@ struct Comment
     QString rawData;
     int startPos;
     int endPos;
+
+    //! Оператор перегрузки, для сравнения двух Comment (используется при тестировании)
+    bool operator == (const Comment& other) const
+    {
+        return rawData == other.rawData &&
+               startPos == other.startPos &&
+               endPos == other.endPos;
+    }
 };
 
 /*!
