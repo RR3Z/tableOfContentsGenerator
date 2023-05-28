@@ -40,6 +40,7 @@ struct Comment
     {
         return rawData == other.rawData &&
                startPos == other.startPos &&
+               isProccessed == other.isProccessed &&
                endPos == other.endPos;
     }
 };
