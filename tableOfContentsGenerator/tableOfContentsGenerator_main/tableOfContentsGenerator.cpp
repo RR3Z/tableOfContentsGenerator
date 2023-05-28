@@ -99,7 +99,7 @@ void findAllComments(const QString& htmlCode, QList<Comment>& commentsList)
 
 void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>& headersList)
 {
-    static QRegularExpression correctHeaderRegex("<h[1-6][^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatch match;
     QList<int> commentedHeadersPos;
 
@@ -108,7 +108,9 @@ void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>
     {
         // Если текущий комментарий содержит в себе корректно заданный h заголовок и не был обработан...
         match = correctHeaderRegex.match(currentComment->rawData);
-        if(match.hasMatch() && !currentComment->isProccessed)
+        qDebug() << currentComment->rawData << currentComment->isProccessed;
+        qDebug() << match.captured();
+        if(match.hasMatch() && currentComment->isProccessed == false)
         {
             // Сохранить позицию открывающего корректно заданный h заголовок тега в контейнер
             commentedHeadersPos.append(currentComment->startPos + match.capturedStart());
