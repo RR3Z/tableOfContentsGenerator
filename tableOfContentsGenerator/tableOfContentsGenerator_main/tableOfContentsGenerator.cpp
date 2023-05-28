@@ -168,7 +168,7 @@ void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QLi
     }
 
     // Если имеется хотя бы один h заголовок, для которого отсутствует закрывающий его тег...
-    if(commentedHeadersWithoutClosingTagPos.count() > 0)
+    if(headersPosWithoutClosingTag.count() > 0)
     {
         // Для каждого h заголовка, у которого отсутствует закрывающий его тег...
         for (QList<int>::iterator currentHeaderWithoutClosingTagPos = headersPosWithoutClosingTag.begin(); currentHeaderWithoutClosingTagPos != headersPosWithoutClosingTag.end(); )
