@@ -4,8 +4,8 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 {
     Header header;
     Header nestedHeader;
-    static QRegularExpression headerRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
-    QRegularExpressionMatchIterator matchIterator = headerRegex.globalMatch(htmlCode);
+    static QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatchIterator matchIterator = correctHeaderRegex.globalMatch(htmlCode);
     QRegularExpressionMatch match;
     // Для каждого найденного корректно заданного h заголовка...
     while (matchIterator.hasNext())
