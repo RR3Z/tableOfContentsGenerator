@@ -77,6 +77,26 @@ void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& h
     }
 }
 
+void findAllComments(const QString& htmlCode, QList<Comment>& commentsList)
+{
+    static QRegularExpression commentsRegex("<!--(.*?)-->", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatchIterator matchIterator = commentsRegex.globalMatch(htmlCode);
+    QRegularExpressionMatch match;
+    Comment comment;
+
+    // Для каждого найденного комментария...
+    while (matchIterator.hasNext())
+    {
+        match = matchIterator.next();
+        // Запомнить информацию об найденном комментарии
+        comment.rawData = match.captured();
+        comment.startPos = match.capturedStart();
+        comment.endPos = match.capturedEnd() - 1;
+        // Сохранить найденный комментарий в контейнер
+        commentsList.append(comment);
+    }
+}
+
 void findHeaders (const QString& htmlCode, QList<Header>& headersList)
 {
 
