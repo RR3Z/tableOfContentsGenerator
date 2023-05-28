@@ -91,18 +91,18 @@ void findAllComments(const QString& htmlCode, QList<Comment>& commentsList);
 void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>& headersList);
 
 /*!
-* \Удалить задокументированные h заголовки без закрывающего их тега из контейнера с позициями открывающих h заголовки тегов
+* \Избавиться задокументированные h заголовки без закрывающего их тега из контейнера с позициями открывающих h заголовки тегов
 * \param[in,out] commentsList - контейнер с комментариями
 * \param[in,out] headersPosWithoutClosingTag - контейнер c позициями открывающих h заголовки тегов, для которых отсутствуют закрывающие h заголовки теги
 */
 void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutClosingTag);
 
 /*!
-* \Удалить задокументированные h заголовки без открывающего их тега из контейнера с позициями закрывающих h заголовки тегов
+* \Избавиться задокументированные h заголовки без открывающего их тега из контейнера с позициями закрывающих h заголовки тегов
 * \param[in,out] commentsList - контейнер с комментариями
 * \param[in,out] headersPosWithoutOpeningTag - контейнер c позициями закрывающих h заголовки тегов, для которых отсутствуют открывающие h заголовки теги
 */
-void removeCommentedHeadersWithoutOpeningTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutOpeningTag);
+void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutOpeningTag);
 
 /*!
 * \Проверить найденные h заголовки на вложенные в них h заголовки
