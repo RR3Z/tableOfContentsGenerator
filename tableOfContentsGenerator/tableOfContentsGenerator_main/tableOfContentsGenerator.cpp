@@ -97,6 +97,50 @@ void findAllComments(const QString& htmlCode, QList<Comment>& commentsList)
     }
 }
 
+void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>& headersList)
+{
+    static QRegularExpression correctHeaderRegex("<h[1-6][^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatch match;
+    QList<int> commentedHeadersPos;
+
+    // Для каждого комментария из контейнера commentsList...
+    for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
+    {
+        // Если текущий комментарий содержит в себе корректно заданный h заголовок и не был обработан...
+        match = correctHeaderRegex.match(currentComment->rawData);
+        if(match.hasMatch() && !currentComment->isProccessed)
+        {
+            // Сохранить позицию открывающего корректно заданный h заголовок тега в контейнер
+            commentedHeadersPos.append(currentComment->startPos + match.capturedStart());
+            // Считать, что текущий комментарий обработан
+            currentComment->isProccessed = true;
+        }
+        // Иначе перейти к следующему комментарию
+        else {
+            ++currentComment;
+        }
+    }
+
+    // Если нашелся хотя бы один комментарий с корректно заданным h заголовком...
+    if(commentedHeadersPos.count() > 0)
+    {
+        // Для каждого заголовка из контейнера headersList...
+        for (QList<Header>::iterator currentHeader = headersList.begin(); currentHeader != headersList.end(); )
+        {
+            // Если текущий заголовок закомменитрован...
+            if(commentedHeadersPos.contains(currentHeader->startPos))
+            {
+                // Удалить текущий заголовок из контейнера headersList
+                currentHeader = headersList.erase(currentHeader);
+            }
+            // Иначе перейти к следующему заголовку
+            else {
+                ++currentHeader;
+            }
+        }
+    }
+}
+
 void findHeaders (const QString& htmlCode, QList<Header>& headersList)
 {
 
