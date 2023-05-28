@@ -7,7 +7,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES +=  tst_findseparateopentagheaders_tests.cpp \
-            ../tableOfContentsGenerator_main/tableOfContentsGenerator.cpp
+            ../tableOfContentsGenerator_main/findHeaders.cpp
 
-HEADERS += ../tableOfContentsGenerator_main/tableOfContentsGenerator.h
+HEADERS += ../tableOfContentsGenerator_main/findHeaders.h
 

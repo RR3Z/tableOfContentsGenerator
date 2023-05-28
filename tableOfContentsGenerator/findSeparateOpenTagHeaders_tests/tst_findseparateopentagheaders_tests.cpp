@@ -1,5 +1,5 @@
 #include <QtTest>
-#include <../tableOfContentsGenerator_main/tableOfContentsGenerator.h>
+#include <../tableOfContentsGenerator_main/findHeaders.h>
 
 class findSeparateOpenTagHeaders_tests : public QObject
 {

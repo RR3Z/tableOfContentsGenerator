@@ -1,5 +1,5 @@
 #include <QtTest>
-#include <../tableOfContentsGenerator_main/tableOfContentsGenerator.h>
+#include <../tableOfContentsGenerator_main/findHeaders.h>
 
 class getRidOfCommentedCorrectHeaders_tests : public QObject
 {
