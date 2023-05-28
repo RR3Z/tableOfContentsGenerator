@@ -11,6 +11,9 @@ private slots:
     void commentedCorrectHeader();
     void noCommentsInHtmlCodeButHeadersAreAvailable();
     void noHeadersInHtmlCodeButCommentsAreAvailable();
+    void commentedNestedCorrectHeader();
+    void commentedNestedHeaderWithoutOpeningTag();
+    void commentedNestedHeaderWithoutClosingTag();
     void complexTest();
 };
 
@@ -103,6 +106,60 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::noHeadersInHtmlCodeButComm
     expectedCommentsList.append(comment);
     comment = {"<!--<h3>H3-->", 24, 36, true};
     expectedCommentsList.append(comment);
+
+    QList<int> headersPosWithoutOpeningTag = {};
+
+    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+
+    QCOMPARE(commentsList, expectedCommentsList);
+    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+}
+
+void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedCorrectHeader()
+{
+    QList<Comment> commentsList = {};
+    Comment comment = {"<!--<h1>H1<h2>H2</h2></h1>-->", 0, 28, true};
+    commentsList.append(comment);
+
+    QList<Comment> expectedCommentsList = commentsList;
+
+    QList<int> headersPosWithoutOpeningTag = {};
+
+    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+
+    QCOMPARE(commentsList, expectedCommentsList);
+    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+}
+
+void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedHeaderWithoutOpeningTag()
+{
+    QList<Comment> commentsList = {};
+    Comment comment = {"<!--<h1>H1 H2</h2></h1>-->", 0, 25, true};
+    commentsList.append(comment);
+
+    QList<Comment> expectedCommentsList = commentsList;
+
+    QList<int> headersPosWithoutOpeningTag = {};
+
+    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+
+    QCOMPARE(commentsList, expectedCommentsList);
+    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+}
+
+void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedHeaderWithoutClosingTag()
+{
+    QList<Comment> commentsList = {};
+    Comment comment = {"<!--<h1>H1<h2>H2</h1>-->", 0, 23, true};
+    commentsList.append(comment);
+
+    QList<Comment> expectedCommentsList = commentsList;
 
     QList<int> headersPosWithoutOpeningTag = {};
 
