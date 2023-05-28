@@ -10,6 +10,9 @@ private slots:
     void commentedHeaderWithoutClosingTag();
     void noCommentsInHtmlCodeButHeadersAreAvailable();
     void noHeadersInHtmlCodeButCommentsAreAvailable();
+    void commentedNestedCorrectHeader();
+    void commentedNestedHeaderWithoutOpeningTag();
+    void commentedNestedHeaderWithoutClosingTag();
     void complexTest();
 };
 
@@ -124,6 +127,72 @@ void getRidOfCommentedCorrectHeaders_tests::noHeadersInHtmlCodeButCommentsAreAva
     comment = {"<!--<h2>H2</h2>-->", 0, 17, true};
     expectedCommentsList.append(comment);
     comment = {"<!--<h3>H3</h3>-->", 18, 25, true};
+    expectedCommentsList.append(comment);
+
+    QList<Header> expectedHeadersList = {};
+
+    getRidOfCommentedCorrectHeaders(commentsList, headersList);
+
+    QCOMPARE(commentsList, expectedCommentsList);
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void getRidOfCommentedCorrectHeaders_tests::commentedNestedCorrectHeader()
+{
+    QList<Header> headersList = {};
+    Header header = {1,"<h1>H1<h2>H2</h2></h1>", "H1", 4, 25};
+    headersList.append(header);
+
+    QList<Comment> commentsList = {};
+    Comment comment = {"<!--<h1>H1<h2>H2</h2></h1>-->", 0, 28};
+    commentsList.append(comment);
+
+    QList<Comment> expectedCommentsList = {};
+    comment = {"<!--<h1>H1<h2>H2</h2></h1>-->", 0, 28, true};
+    expectedCommentsList.append(comment);
+
+    QList<Header> expectedHeadersList = {};
+
+    getRidOfCommentedCorrectHeaders(commentsList, headersList);
+
+    QCOMPARE(commentsList, expectedCommentsList);
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void getRidOfCommentedCorrectHeaders_tests::commentedNestedHeaderWithoutOpeningTag()
+{
+    QList<Header> headersList = {};
+    Header header = {1,"<h1>H1 H2</h2></h1>", "H1", 4, 22};
+    headersList.append(header);
+
+    QList<Comment> commentsList = {};
+    Comment comment = {"<!--<h1>H1 H2</h2></h1>-->", 0, 25};
+    commentsList.append(comment);
+
+    QList<Comment> expectedCommentsList = {};
+    comment = {"<!--<h1>H1 H2</h2></h1>-->", 0, 25, true};
+    expectedCommentsList.append(comment);
+
+    QList<Header> expectedHeadersList = {};
+
+    getRidOfCommentedCorrectHeaders(commentsList, headersList);
+
+    QCOMPARE(commentsList, expectedCommentsList);
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void getRidOfCommentedCorrectHeaders_tests::commentedNestedHeaderWithoutClosingTag()
+{
+    QList<Header> headersList = {};
+    Header header = {1,"<h1>H1<h2>H2</h1>", "H1", 4, 20};
+    headersList.append(header);
+
+    QList<Comment> commentsList = {};
+    Comment comment = {"<!--<h1>H1<h2>H2</h1>-->", 0, 23};
+    commentsList.append(comment);
+
+    QList<Comment> expectedCommentsList = {};
+    comment = {"<!--<h1>H1<h2>H2</h1>-->", 0, 23, true};
     expectedCommentsList.append(comment);
 
     QList<Header> expectedHeadersList = {};
