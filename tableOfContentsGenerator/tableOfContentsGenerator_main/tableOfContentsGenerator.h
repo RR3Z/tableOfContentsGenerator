@@ -83,11 +83,11 @@ void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& h
 void findAllComments(const QString& htmlCode, QList<Comment>& commentsList);
 
 /*!
-* \Удалить задокументированные корректно заданные h заголовки из контейнера с найденными h заголовками
+* \Избавиться от закомментированных корректно заданных h заголовков
 * \param[in,out] commentsList - контейнер с комментариями
-* \param[in,out] headersList - контейнер c найденными h заголовками, который чистят от задокументированных корректно заданных h заголовков
+* \param[in,out] headersList - контейнер c найденными h заголовками, который чистят от закомментированных корректно заданных h заголовков
 */
-void removeCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>& headersList);
+void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>& headersList);
 
 /*!
 * \Удалить задокументированные h заголовки без закрывающего их тега из контейнера с позициями открывающих h заголовки тегов
