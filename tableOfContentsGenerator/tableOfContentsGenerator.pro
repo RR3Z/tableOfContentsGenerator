@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    checkForNestedHeaders_tests \
     findAllComments_tests \
     findCorrectHeaders_tests \
     findHeaders_tests \
