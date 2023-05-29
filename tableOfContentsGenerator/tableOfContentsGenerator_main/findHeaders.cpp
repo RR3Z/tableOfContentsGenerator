@@ -108,8 +108,6 @@ void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>
     {
         // Если текущий комментарий содержит в себе корректно заданный h заголовок и не был обработан...
         match = correctHeaderRegex.match(currentComment->rawData);
-        qDebug() << currentComment->rawData << currentComment->isProccessed;
-        qDebug() << match.captured();
         if(match.hasMatch() && currentComment->isProccessed == false)
         {
             // Сохранить позицию открывающего корректно заданный h заголовок тега в контейнер
