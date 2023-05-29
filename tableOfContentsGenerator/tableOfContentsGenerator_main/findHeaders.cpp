@@ -233,6 +233,23 @@ void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment>& commentsList, QLi
     }
 }
 
+void checkForNestedHeaders(const QList<Header>& headersList)
+{
+    static QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatch match;
+    // Для всех найденных корректно заданных h заголовков...
+    for(int i = 0; i<headersList.count(); i++)
+    {
+        match = correctHeaderRegex.match(headersList.at(i).content);
+        // Если внутри текущего h заголовка нашелся вложенный h заголовок...
+        if(match.hasMatch())
+        {
+            // Выкинуть ошибку: "В заголовке: '#' имеется вложенный заголовок '#'"
+            throw QString("Для заголовка '" + headersList.at(i).rawData + "', который начинается с позиции '" + QString::number(headersList.at(i).startPos) + "', имеется вложенный заголовок '" + match.captured() + "'");
+        }
+    }
+}
+
 void findHeaders (const QString& htmlCode, QList<Header>& headersList)
 {
 
