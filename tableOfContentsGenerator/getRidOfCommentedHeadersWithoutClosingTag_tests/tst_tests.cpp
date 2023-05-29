@@ -31,14 +31,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedHeadersWithoutClo
     comment = {"<!--<h3>H3-->", 24, 36, true};
     expectedCommentsList.append(comment);
 
-    QList<int> headersPosWithoutOpeningTag = {15, 28, 37};
+    QList<int> headersPosWithoutClosingTag = {15, 28, 37};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = {37};
+    QList<int> expectedHeadersPosWithoutClosingTag = {37};
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedHeaderWithoutOpeningTag()
@@ -49,14 +49,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedHeaderWithoutOpen
 
     QList<Comment> expectedCommentsList = commentsList;
 
-    QList<int> headersPosWithoutOpeningTag = {15, 28, 37};
+    QList<int> headersPosWithoutClosingTag = {15, 28, 37};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+    QList<int> expectedHeadersPosWithoutClosingTag = headersPosWithoutClosingTag;
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedCorrectHeader()
@@ -67,14 +67,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedCorrectHeader()
 
     QList<Comment> expectedCommentsList = commentsList;
 
-    QList<int> headersPosWithoutOpeningTag = {29, 39};
+    QList<int> headersPosWithoutClosingTag = {29, 39};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+    QList<int> expectedHeadersPosWithoutClosingTag = headersPosWithoutClosingTag;
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::noCommentsInHtmlCodeButHeadersAreAvailable()
@@ -83,14 +83,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::noCommentsInHtmlCodeButHea
 
     QList<Comment> expectedCommentsList = commentsList;
 
-    QList<int> headersPosWithoutOpeningTag = {15, 28, 37};
+    QList<int> headersPosWithoutClosingTag = {15, 28, 37};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+    QList<int> expectedHeadersPosWithoutClosingTag = headersPosWithoutClosingTag;
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::noHeadersInHtmlCodeButCommentsAreAvailable()
@@ -107,14 +107,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::noHeadersInHtmlCodeButComm
     comment = {"<!--<h3>H3-->", 24, 36, true};
     expectedCommentsList.append(comment);
 
-    QList<int> headersPosWithoutOpeningTag = {};
+    QList<int> headersPosWithoutClosingTag = {};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+    QList<int> expectedHeadersPosWithoutClosingTag = headersPosWithoutClosingTag;
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedCorrectHeader()
@@ -125,14 +125,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedCorrectHead
 
     QList<Comment> expectedCommentsList = commentsList;
 
-    QList<int> headersPosWithoutOpeningTag = {};
+    QList<int> headersPosWithoutClosingTag = {};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+    QList<int> expectedHeadersPosWithoutClosingTag = headersPosWithoutClosingTag;
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedHeaderWithoutOpeningTag()
@@ -143,14 +143,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedHeaderWitho
 
     QList<Comment> expectedCommentsList = commentsList;
 
-    QList<int> headersPosWithoutOpeningTag = {};
+    QList<int> headersPosWithoutClosingTag = {};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+    QList<int> expectedHeadersPosWithoutClosingTag = headersPosWithoutClosingTag;
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedHeaderWithoutClosingTag()
@@ -161,14 +161,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::commentedNestedHeaderWitho
 
     QList<Comment> expectedCommentsList = commentsList;
 
-    QList<int> headersPosWithoutOpeningTag = {};
+    QList<int> headersPosWithoutClosingTag = {};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = headersPosWithoutOpeningTag;
+    QList<int> expectedHeadersPosWithoutClosingTag = headersPosWithoutClosingTag;
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 void getRidOfCommentedHeadersWithoutClosingTag_tests::complexTest()
@@ -197,14 +197,14 @@ void getRidOfCommentedHeadersWithoutClosingTag_tests::complexTest()
     comment = {"<!--Text-->", 80, 90};
     expectedCommentsList.append(comment);
 
-    QList<int> headersPosWithoutOpeningTag = {15, 28, 97};
+    QList<int> headersPosWithoutClosingTag = {15, 28, 97};
 
-    QList<int> expectedHeadersPosWithoutOpeningTag = {97};
+    QList<int> expectedHeadersPosWithoutClosingTag = {97};
 
-    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutOpeningTag);
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, headersPosWithoutClosingTag);
 
     QCOMPARE(commentsList, expectedCommentsList);
-    QCOMPARE(headersPosWithoutOpeningTag, expectedHeadersPosWithoutOpeningTag);
+    QCOMPARE(headersPosWithoutClosingTag, expectedHeadersPosWithoutClosingTag);
 }
 
 QTEST_APPLESS_MAIN(getRidOfCommentedHeadersWithoutClosingTag_tests)
