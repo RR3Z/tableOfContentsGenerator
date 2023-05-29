@@ -93,16 +93,16 @@ void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>
 /*!
 * \Избавиться от закоментированных h заголовков без закрывающего их тега из контейнера с позициями открывающих h заголовки тегов
 * \param[in,out] commentsList - контейнер с комментариями
-* \param[in,out] headersPosWithoutClosingTag - контейнер c позициями открывающих h заголовки тегов, для которых отсутствуют закрывающие h заголовки теги
+* \param[in,out] openTagHeadersPos - контейнер c позициями открывающих h заголовки тегов, для которых отсутствуют закрывающие h заголовки теги
 */
-void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutClosingTag);
+void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QList<int>& openTagHeadersPos);
 
 /*!
 * \Избавиться от закомментированных h заголовков без открывающего их тега из контейнера с позициями закрывающих h заголовки тегов
 * \param[in,out] commentsList - контейнер с комментариями
-* \param[in,out] headersPosWithoutOpeningTag - контейнер c позициями закрывающих h заголовки тегов, для которых отсутствуют открывающие h заголовки теги
+* \param[in,out] closeTagHeadersPos - контейнер c позициями закрывающих h заголовки тегов, для которых отсутствуют открывающие h заголовки теги
 */
-void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutOpeningTag);
+void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment>& commentsList, QList<int>& closeTagHeadersPos);
 
 /*!
 * \Проверить найденные h заголовки на вложенные в них h заголовки
