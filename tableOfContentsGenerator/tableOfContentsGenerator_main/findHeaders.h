@@ -91,14 +91,14 @@ void findAllComments(const QString& htmlCode, QList<Comment>& commentsList);
 void getRidOfCommentedCorrectHeaders(QList<Comment>& commentsList, QList<Header>& headersList);
 
 /*!
-* \Избавиться задокументированные h заголовки без закрывающего их тега из контейнера с позициями открывающих h заголовки тегов
+* \Избавиться от закоментированных h заголовков без закрывающего их тега из контейнера с позициями открывающих h заголовки тегов
 * \param[in,out] commentsList - контейнер с комментариями
 * \param[in,out] headersPosWithoutClosingTag - контейнер c позициями открывающих h заголовки тегов, для которых отсутствуют закрывающие h заголовки теги
 */
 void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutClosingTag);
 
 /*!
-* \Избавиться задокументированные h заголовки без открывающего их тега из контейнера с позициями закрывающих h заголовки тегов
+* \Избавиться от закомментированных h заголовков без открывающего их тега из контейнера с позициями закрывающих h заголовки тегов
 * \param[in,out] commentsList - контейнер с комментариями
 * \param[in,out] headersPosWithoutOpeningTag - контейнер c позициями закрывающих h заголовки тегов, для которых отсутствуют открывающие h заголовки теги
 */
