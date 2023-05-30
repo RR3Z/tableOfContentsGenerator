@@ -25,7 +25,7 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 
 void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& openTagHeadersPos)
 {
-    static QRegularExpression openTagHeader("<h([1-6])[^>]*>.*?(?!(?:<h([1-6])[^>]*>))", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression openTagHeader("<h([1-6])[^>]*>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator = openTagHeader.globalMatch(htmlCode);
     QRegularExpressionMatch match;
 
