@@ -59,3 +59,15 @@ inputDataType defineInputDataType (const int argsCounter, const char* inputArgs[
         throw QString("По пути '" + inputPath + "' нет заданного файла");
     }
 }
+
+bool isListEmpty (const QList<Header>& headersList)
+{
+    // Если количество элементов в контейнере больше 0...
+    if(headersList.count() > 0)
+    {
+        // Вернуть значение функции, которое означает, что контейнер не пустой
+        return false;
+    }
+    // Вернуть значение функции, которое означает, что контейнер пустой
+    return true;
+}
