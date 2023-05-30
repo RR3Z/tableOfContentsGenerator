@@ -110,3 +110,35 @@ void generateTableOfContents (const QList<Header>& headersList, QString& tableOf
 
     qDebug() << tableOfContents;
 }
+
+void saveDataToFile (const QString outputData)
+{
+    QString outputPath = "./Result/result.html";
+    QFile outputFile(outputPath);
+    // Если папки "Result" по пути "./" не существует...
+    QDir outputDir = QFileInfo(outputPath).dir();
+    if(!outputDir.exists())
+    {
+        // Если создать папку не удалось...
+        if(!outputDir.mkpath(outputDir.absolutePath()))
+        {
+            // Выкинуть исключение: "Не удалось создать папку 'Result' по пути './' (возможно, недостаточно прав)"
+            throw QString("Не удалось создать папку 'Result' по пути './' (возможно, недостаточно прав)");
+        }
+    }
+
+    // Если не удалось получить доступ к файлу 'result.html'...
+    if(!outputFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        // Выкинуть исключение: "Отсутствует доступ к файлу 'result.html', по пути 'ПОЛНЫЙ ПУТЬ К ФАЙЛУ'"
+        throw QString("Отсутствует доступ к файлу 'result.html', по пути '" + outputFile.fileName());
+    }
+
+    // Сохранить данные в файл
+    QTextStream out(&outputFile);
+    out << outputData;
+
+    // Закрыть доступ к файлу
+    outputFile.close();
+
+}
