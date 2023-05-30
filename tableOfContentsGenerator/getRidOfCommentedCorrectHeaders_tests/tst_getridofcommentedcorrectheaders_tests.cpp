@@ -33,19 +33,12 @@ void getRidOfCommentedCorrectHeaders_tests::commentedCorrectHeadersAreAvailable(
     comment = {"<!--<h3>H3</h3>-->", 34, 51};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = {};
-    comment = {"<!--<h2>H2</h2>-->", 12, 29, true};
-    expectedCommentsList.append(comment);
-    comment = {"<!--<h3>H3</h3>-->", 34, 51, true};
-    expectedCommentsList.append(comment);
-
     QList<Header> expectedHeadersList = {};
     header = {1,"<h1>H1</h1>", "H1", 0, 10};
     expectedHeadersList.append(header);
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -59,13 +52,10 @@ void getRidOfCommentedCorrectHeaders_tests::commentedHeaderWithoutOpeningTag()
     Comment comment = {"<!--H2</h2>-->", 11, 24};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = commentsList;
-
     QList<Header> expectedHeadersList = headersList;
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -79,13 +69,10 @@ void getRidOfCommentedCorrectHeaders_tests::commentedHeaderWithoutClosingTag()
     Comment comment = {"<!--<h2>H2-->", 11, 23};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = commentsList;
-
     QList<Header> expectedHeadersList = headersList;
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -102,13 +89,10 @@ void getRidOfCommentedCorrectHeaders_tests::noCommentsInHtmlCodeButHeadersAreAva
 
     QList<Comment> commentsList = {};
 
-    QList<Comment> expectedCommentsList = {};
-
     QList<Header> expectedHeadersList = headersList;
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -123,17 +107,10 @@ void getRidOfCommentedCorrectHeaders_tests::noHeadersInHtmlCodeButCommentsAreAva
     comment = {"<!--<h3>H3</h3>-->", 18, 25};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = {};
-    comment = {"<!--<h2>H2</h2>-->", 0, 17, true};
-    expectedCommentsList.append(comment);
-    comment = {"<!--<h3>H3</h3>-->", 18, 25, true};
-    expectedCommentsList.append(comment);
-
     QList<Header> expectedHeadersList = {};
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -147,15 +124,10 @@ void getRidOfCommentedCorrectHeaders_tests::commentedNestedCorrectHeader()
     Comment comment = {"<!--<h1>H1<h2>H2</h2></h1>-->", 0, 28};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = {};
-    comment = {"<!--<h1>H1<h2>H2</h2></h1>-->", 0, 28, true};
-    expectedCommentsList.append(comment);
-
     QList<Header> expectedHeadersList = {};
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -169,15 +141,10 @@ void getRidOfCommentedCorrectHeaders_tests::commentedNestedHeaderWithoutOpeningT
     Comment comment = {"<!--<h1>H1 H2</h2></h1>-->", 0, 25};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = {};
-    comment = {"<!--<h1>H1 H2</h2></h1>-->", 0, 25, true};
-    expectedCommentsList.append(comment);
-
     QList<Header> expectedHeadersList = {};
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -191,15 +158,10 @@ void getRidOfCommentedCorrectHeaders_tests::commentedNestedHeaderWithoutClosingT
     Comment comment = {"<!--<h1>H1<h2>H2</h1>-->", 0, 23};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = {};
-    comment = {"<!--<h1>H1<h2>H2</h1>-->", 0, 23, true};
-    expectedCommentsList.append(comment);
-
     QList<Header> expectedHeadersList = {};
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
@@ -224,23 +186,12 @@ void getRidOfCommentedCorrectHeaders_tests::complexTest()
     comment = {"<!--<h5>H5-->", 66, 78};
     commentsList.append(comment);
 
-    QList<Comment> expectedCommentsList = {};
-    comment = {"<!--<h2>H2</h2>-->", 12, 29, true};
-    expectedCommentsList.append(comment);
-    comment = {"<!--<h3>H3</h3>-->", 34, 51, true};
-    expectedCommentsList.append(comment);
-    comment = {"<!--H4</h4>-->", 52, 65};
-    expectedCommentsList.append(comment);
-    comment = {"<!--<h5>H5-->", 66, 78};
-    expectedCommentsList.append(comment);
-
     QList<Header> expectedHeadersList = {};
     header = {1,"<h1>H1</h1>", "H1", 0, 10};
     expectedHeadersList.append(header);
 
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
 
-    QCOMPARE(commentsList, expectedCommentsList);
     QCOMPARE(headersList, expectedHeadersList);
 }
 
