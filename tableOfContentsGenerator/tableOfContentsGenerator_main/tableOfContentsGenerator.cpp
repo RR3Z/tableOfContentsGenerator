@@ -71,3 +71,42 @@ bool isListEmpty (const QList<Header>& headersList)
     // Вернуть значение функции, которое означает, что контейнер пустой
     return true;
 }
+
+void generateTableOfContents (const QList<Header>& headersList, QString& tableOfContents)
+{
+    // Считать, что уровень предыдущего заголовка неизвестен
+    int prevLevel = 0;
+
+    // Для всех найденных h заголовков...
+    for(const auto& currentHeader: headersList)
+    {
+        // Пока уровень текущего заголовка меньше, чем максимальный уровень списка...
+        while (currentHeader.level < prevLevel) {
+            // Добавить закрывающий список тег в оглавление
+            tableOfContents.append("</ul>\n");
+            // Уменьшить максимальный уровень списка
+            prevLevel--;
+        }
+
+        // Пока уровень текущего заголовка больше, чем максимальный уровень списка...
+        while (currentHeader.level > prevLevel) {
+            // Добавить открывающий список тег в оглавление
+            tableOfContents.append("<ul>\n");
+            // Увеличить максимальный уровень списка
+            prevLevel++;
+        }
+
+        // Добавить содержимое текущего заголовка в список в таком виде, в каком оно есть
+        tableOfContents += "<li>" + currentHeader.content + "</li>\n";
+    }
+
+    // Пока имеются незакрытые списки...
+    while (prevLevel > 0) {
+        // Добавить закрывающий список тег в оглавление
+        tableOfContents.append("</ul>\n");
+        // Уменьшить максимальный уровень списка
+        prevLevel--;
+    }
+
+    qDebug() << tableOfContents;
+}
