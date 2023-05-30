@@ -8,6 +8,7 @@ SUBDIRS += \
     findHeaders_tests \
     findSeparateOpenTagHeaders_tests \
     findSeperateCloseTagHeaders_tests \
+    generateTableOfContents_tests \
     getRidOfCommentedCorrectHeaders_tests \
     getRidOfCommentedHeadersWithoutClosingTag_tests \
     getRidOfCommentedHeadersWithoutOpeningTag_tests \
