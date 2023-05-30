@@ -52,7 +52,7 @@ void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& he
 
 void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& closeTagHeadersPos)
 {
-    static QRegularExpression closeTagHeader("</h[1-6]>.*?(?!(?:<h/[1-6]>))", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression closeTagHeader("</h([1-6])>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator = closeTagHeader.globalMatch(htmlCode);
     QRegularExpressionMatch match;
 
