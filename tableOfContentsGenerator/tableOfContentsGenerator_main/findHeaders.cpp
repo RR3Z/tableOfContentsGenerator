@@ -250,5 +250,40 @@ void checkForNestedHeaders(const QList<Header>& headersList)
 
 void findHeaders (const QString& htmlCode, QList<Header>& headersList)
 {
+    QList<int> closeTagHeadersPos;
+    QList<int> openTagHeadersPos;
+    QList<Comment> commentsList;
 
+    // Найти все комментарии в HTML-коде...
+    findAllComments(htmlCode, commentsList);
+    // Найти корректно заданные h заголовки в HTML-коде...
+    findCorrectHeaders(htmlCode, headersList);
+    // Найти h заголовки в HTML-коде, для которых отсутствует закрывающий тег...
+    findSeperateOpenTagHeaders(htmlCode, headersList, openTagHeadersPos);
+    // Найти h заголовки в HTML-коде, для которых отсутствует открывающий тег...
+    findSeperateCloseTagHeaders(htmlCode, headersList, closeTagHeadersPos);
+    // Удалить задокументированные корректно заданные h заголовки из контейнера с найденными h заголовками...
+    getRidOfCommentedCorrectHeaders(commentsList, headersList);
+    // Проверить найденные корректно заданные h заголовки на вложенность в них других корректно заданных h заголовков...
+    checkForNestedHeaders(headersList);
+    // Удалить закомментированные h заголовки, для которых отсутствует закрывающий их тег, из контейнера с найденными h заголовками без закрывающего их тега...
+    getRidOfCommentedHeadersWithoutClosingTag(commentsList, openTagHeadersPos);
+    // Удалить закомментированные h заголовки, для которых отсутствует открывающий их тег, из контейнера с найденными h заголовками без открывающего их тега...
+    getRidOfCommentedHeadersWithoutOpeningTag(commentsList, closeTagHeadersPos);
+
+    // Если был найден хотя бы один h заголовок, без закрывающего его тега...
+    if(openTagHeadersPos.count() > 0)
+    {
+        qDebug() << "Для заголовка, который начинается на позиции '" + QString::number(openTagHeadersPos.at(0)) + "', отсутствует закрывающий тег";
+        // Выкинуть ошибку: "Для заголовка, который начинается на позиции '#', отсутствует закрывающий тег"
+        throw QString("Для заголовка, который начинается на позиции '" + QString::number(openTagHeadersPos.at(0)) + "', отсутствует закрывающий тег");
+    }
+
+    // Если был найден хотя бы один h заголовок, без открвыющего его тега...
+    if(closeTagHeadersPos.count() > 0)
+    {
+        // Выкинуть ошибку: "Для заголовка, который начинается на позиции '#', отсутствует открывающий тег"
+        throw QString("Для заголовка, который заканчивается на позиции '" + QString::number(closeTagHeadersPos.at(0)) + "', отсутствует открывающий тег");
+    }
 }
+
