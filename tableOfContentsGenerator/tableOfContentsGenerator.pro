@@ -11,4 +11,5 @@ SUBDIRS += \
     getRidOfCommentedCorrectHeaders_tests \
     getRidOfCommentedHeadersWithoutClosingTag_tests \
     getRidOfCommentedHeadersWithoutOpeningTag_tests \
+    isListEmpty_tests \
     tableOfContentsGenerator_main
