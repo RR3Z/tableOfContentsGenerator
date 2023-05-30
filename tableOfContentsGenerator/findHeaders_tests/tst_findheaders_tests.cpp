@@ -27,7 +27,7 @@ private slots:
     void nestedHeaderWithoutOpeningTag();
     void nestedHeaderWithoutOpeningTagInNestedHeader();
     void complexTest();
-    void nestedHeaderInComment();
+    void nestedCorrectHeaderInComment();
     void correctHeaderAndHeaderWithoutOpeningTag();
     void correctHeaderAndHeaderWithoutClosingTag();
     void correctHeaderWithAttrubutes();
@@ -476,7 +476,7 @@ void findHeaders_tests::nestedHeaderWithoutOpeningTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '14', отсутствует открывающий тег");
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '13', отсутствует открывающий тег");
     }
 }
 
@@ -538,9 +538,9 @@ void findHeaders_tests::complexTest()
     QCOMPARE(headersList, expectedHeadersList);
 }
 
-void findHeaders_tests::nestedHeaderInComment()
+void findHeaders_tests::nestedCorrectHeaderInComment()
 {
-    QString htmlCode = "<html><h1>Header</h1><!--<h2>H1<h3>H2</h3></h2>--></html>";
+    QString htmlCode = "<html><h1>Header</h1><!--<h2>H2<h3>H3</h3></h2>--></html>";
     QList<Header> headersList;
 
     QList<Header> expectedHeadersList = {};
@@ -568,7 +568,7 @@ void findHeaders_tests::correctHeaderWithAttrubutes()
     header.content = "H6";
     header.rawData = "<h6 class=\"subheader\" data=\"info\" style=\"color: red\">H6</h6>";
     header.startPos = 6;
-    header.endPos = 66;
+    header.endPos = 65;
     expectedHeadersList.append(header);
 
     findHeaders(htmlCode, headersList);
