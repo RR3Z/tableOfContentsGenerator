@@ -169,48 +169,36 @@ void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment> commentsList, QLis
     }
 }
 
-void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment>& commentsList, QList<int>& headersPosWithoutOpeningTag)
+void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment> commentsList, QList<int>& closeTagHeadersPos)
 {
     static QRegularExpression closeTagHeader("</h([1-6])>", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatchIterator matchIterator;
     QRegularExpressionMatch match;
-    QList<int> commentedHeadersWithoutOpeningTagPos;
 
-    // Для каждого комментария из контейнера commentsList...
-    for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
+    // Если имеется хотя бы один открывающий h заголовок тег в контейнере closeTagHeadersPos...
+    if (closeTagHeadersPos.count() > 0)
     {
-        // Если текущий комментарий содержит в себе закрывающий h заголовок тег...
-        match = closeTagHeader.match(currentComment->rawData);
-        if(match.hasMatch() && currentComment->isProccessed == false)
+        // Для каждого комментария из контейнера commentsList...
+        for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
         {
-            // Сохранить позицию текущего закрывающего h заголовок тега в HTML-коде в контейнер
-            commentedHeadersWithoutOpeningTagPos.append(currentComment->startPos + match.capturedEnd() - 1);
-            // Считать, что текущий комментарий обработан
-            currentComment->isProccessed = true;
-        }
-        // Иначе перейти к следующему комментарию
-        else {
+            // Если текущий комментарий содержит в себе закрывающий h заголовок тег / теги...
+            matchIterator = closeTagHeader.globalMatch(currentComment->rawData);
+            while(matchIterator.hasNext())
+            {
+                match = matchIterator.next();
+
+                // Если найденный закрывающий h заголовок тег имеется в контейнере closeTagHeadersPos...
+                if (closeTagHeadersPos.contains(currentComment->startPos + match.capturedEnd() - 1))
+                {
+                    // Удалить закомментированный открывающий h заголовок тег из контейнера openTagHeadersPos
+                    closeTagHeadersPos.removeAt(closeTagHeadersPos.indexOf(currentComment->startPos + match.capturedEnd() - 1));
+                }
+            }
+
+            // Перейти к следующему комментарию
             ++currentComment;
         }
-    }
 
-    // Если имеется хотя бы один h заголовок, для которого отсутствует открывающий его тег...
-    if(headersPosWithoutOpeningTag.count() > 0)
-    {
-        // Для каждого h заголовка, с отсутствующим открывающим его тегом...
-        for (QList<int>::iterator currentHeaderWithoutOpeningTagPos = headersPosWithoutOpeningTag.begin(); currentHeaderWithoutOpeningTagPos != headersPosWithoutOpeningTag.end(); )
-        {
-            // Если текущий h заголовок без открывающего его тега закоментирован...
-            if (commentedHeadersWithoutOpeningTagPos.contains(*currentHeaderWithoutOpeningTagPos))
-            {
-                // Удалить текущий h заголовок из контейнера headersPosWithoutOpeningTag
-                currentHeaderWithoutOpeningTagPos = headersPosWithoutOpeningTag.erase(currentHeaderWithoutOpeningTagPos);
-            }
-            // Иначе перейти к следующему элементу
-            else
-            {
-                ++currentHeaderWithoutOpeningTagPos;
-            }
-        }
     }
 }
 
