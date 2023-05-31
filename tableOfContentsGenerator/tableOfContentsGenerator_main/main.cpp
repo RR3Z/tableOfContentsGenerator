@@ -32,8 +32,12 @@ int main(int argc, char *argv[])
         // Найти в HTML-коде h заголовки...
         findHeaders(inputData, headersList);
 
-        // Проверить контейнер с найденными h заголовками на пустое...
-        isListEmpty(headersList);
+        // Если контейнер с h заголовками пустой...
+        if (isListEmpty(headersList))
+        {
+            // Выкинуть ошибку: "В заданном HTML-коде отсутствую h заголовки"
+            throw QString("В заданном HTML-коде отсутствую h заголовки");
+        }
 
         // Сгенерировать оглавление HTML-страницы...
         generateTableOfContents(headersList, tableOfContents);
