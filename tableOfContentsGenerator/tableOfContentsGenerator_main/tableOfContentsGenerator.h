@@ -22,7 +22,7 @@ enum dataType{
 * \return - тип входных данных (FILE_TYPE - файл, URL_TYPE - url)
 * \throw - выбрасывает исключения в случае ошибок
 */
-dataType defineInputDataType (const int argsCounter, const char* inputArgs[]);
+dataType defineInputDataType (const int argsCounter, char* inputArgs[]);
 
 /*!
 * \Выгрузить HTML-код страницы
