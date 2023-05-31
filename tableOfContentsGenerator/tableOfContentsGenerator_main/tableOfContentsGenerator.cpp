@@ -142,3 +142,22 @@ void saveDataToFile (const QString outputData)
     outputFile.close();
 
 }
+
+void readInputDataFromFile (const QString inputPath, QString& inputData)
+{
+    QFile file(inputPath);
+
+    // Если получить доступ к файлу по пути inputPath не удалось...
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        // Выкинуть ошибку: "Отсутствует доступ к файлу '#' (возможно, недостаточно прав)."
+        throw QString("Отсутствует доступ к файлу '" + inputPath + "' (возможно, недостаточно прав).");
+    }
+
+    // Считать данные из файла в inputData
+    QByteArray data = file.readAll();
+    inputData = QString::fromUtf8(data).simplified();
+
+    // Закрыть доступ к файлу
+    file.close();
+}
