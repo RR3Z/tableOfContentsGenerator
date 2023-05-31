@@ -19,7 +19,7 @@ private slots:
 void defineInputDataType_tests::inputDataIsFile()
 {
     int argc = 2;
-    const char *inputArgs[2];
+    char* inputArgs[2];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "../../testFiles/defineInputDataType_tests/inputDataIsFile.html";
     inputArgs[0] = arg1;
@@ -32,7 +32,7 @@ void defineInputDataType_tests::inputDataIsFile()
 void defineInputDataType_tests::inputDataIsURL()
 {
     int argc = 2;
-    const char *inputArgs[2];
+    char* inputArgs[2];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "https://example.com";
     inputArgs[0] = arg1;
@@ -45,7 +45,7 @@ void defineInputDataType_tests::inputDataIsURL()
 void defineInputDataType_tests::unsupportedInputFileFormat()
 {
     int argc = 2;
-    const char *inputArgs[2];
+    char* inputArgs[2];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "../../testFiles/defineInputDataType_tests/unsupportedInputFileFormat.txt";
     inputArgs[0] = arg1;
@@ -63,7 +63,7 @@ void defineInputDataType_tests::unsupportedInputFileFormat()
 void defineInputDataType_tests::specifiedFileIsMissing()
 {
     int argc = 2;
-    const char *inputArgs[2];
+    char* inputArgs[2];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "../../testFiles/defineInputDataType_tests/noSuchFile.exe";
     inputArgs[0] = arg1;
@@ -82,7 +82,7 @@ void defineInputDataType_tests::specifiedFileIsMissing()
 void defineInputDataType_tests::inputDataIsMissing()
 {
     int argc = 1;
-    const char *inputArgs[1];
+    char* inputArgs[1];
     char arg1[] = "generateTableOfContents.exe";
     inputArgs[0] = arg1;
     try
@@ -99,7 +99,7 @@ void defineInputDataType_tests::inputDataIsMissing()
 void defineInputDataType_tests::httpSupportedUrlProtocol()
 {
     int argc = 2;
-    const char *inputArgs[2];
+    char* inputArgs[2];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "http://example.com";
     inputArgs[0] = arg1;
@@ -112,7 +112,7 @@ void defineInputDataType_tests::httpSupportedUrlProtocol()
 void defineInputDataType_tests::unsupportedUrlProtocol()
 {
     int argc = 2;
-    const char *inputArgs[2];
+    char* inputArgs[2];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "file:///C:/Users/student/Downloads/4d6.jpeg";
     inputArgs[0] = arg1;
@@ -130,7 +130,7 @@ void defineInputDataType_tests::unsupportedUrlProtocol()
 void defineInputDataType_tests::extraCharactersInArgument()
 {
     int argc = 2;
-    const char *inputArgs[2];
+    char* inputArgs[2];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "    ../testFiles/defineInputDataType_tests/extraCharactersInArgument.html";
     inputArgs[0] = arg1;
@@ -148,7 +148,7 @@ void defineInputDataType_tests::extraCharactersInArgument()
 void defineInputDataType_tests::invalidNumberOfArguments()
 {
     int argc = 3;
-    const char *inputArgs[3];
+    char* inputArgs[3];
     char arg1[] = "generateTableOfContents.exe";
     char arg2[] = "a";
     char arg3[] = "b";
