@@ -10,7 +10,7 @@
 /*!
 * \Перечисление типов входных данных
 */
-enum inputDataType{
+enum dataType{
     FILE_TYPE = 0,
     URL_TYPE = 1
 };
@@ -22,7 +22,7 @@ enum inputDataType{
 * \return - тип входных данных (FILE_TYPE - файл, URL_TYPE - url)
 * \throw - выбрасывает исключения в случае ошибок
 */
-inputDataType defineInputDataType (const int argsCounter, const char* inputArgs[]);
+dataType defineInputDataType (const int argsCounter, const char* inputArgs[]);
 
 /*!
 * \Выгрузить HTML-код страницы

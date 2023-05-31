@@ -24,8 +24,8 @@ void defineInputDataType_tests::inputDataIsFile()
     char arg2[] = "../../testFiles/defineInputDataType_tests/inputDataIsFile.html";
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
-    inputDataType expectedResult = FILE_TYPE;
-    inputDataType functionResult = defineInputDataType(argc, inputArgs);
+    dataType expectedResult = FILE_TYPE;
+    dataType functionResult = defineInputDataType(argc, inputArgs);
     QCOMPARE(functionResult,expectedResult);
 }
 
@@ -37,8 +37,8 @@ void defineInputDataType_tests::inputDataIsURL()
     char arg2[] = "https://example.com";
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
-    inputDataType expectedResult = URL_TYPE;
-    inputDataType functionResult = defineInputDataType(argc, inputArgs);
+    dataType expectedResult = URL_TYPE;
+    dataType functionResult = defineInputDataType(argc, inputArgs);
     QCOMPARE(functionResult,expectedResult);
 }
 
@@ -52,7 +52,7 @@ void defineInputDataType_tests::unsupportedInputFileFormat()
     inputArgs[1] = arg2;
     try
     {
-        inputDataType functionResult = defineInputDataType(argc, inputArgs);
+        dataType functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
@@ -70,7 +70,7 @@ void defineInputDataType_tests::specifiedFileIsMissing()
     inputArgs[1] = arg2;
     try
     {
-        inputDataType functionResult = defineInputDataType(argc, inputArgs);
+        dataType functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
@@ -87,7 +87,7 @@ void defineInputDataType_tests::inputDataIsMissing()
     inputArgs[0] = arg1;
     try
     {
-        inputDataType functionResult = defineInputDataType(argc, inputArgs);
+        dataType functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
@@ -104,8 +104,8 @@ void defineInputDataType_tests::httpSupportedUrlProtocol()
     char arg2[] = "http://example.com";
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
-    inputDataType expectedResult = URL_TYPE;
-    inputDataType functionResult = defineInputDataType(argc, inputArgs);
+    dataType expectedResult = URL_TYPE;
+    dataType functionResult = defineInputDataType(argc, inputArgs);
     QCOMPARE(functionResult,expectedResult);
 }
 
@@ -119,7 +119,7 @@ void defineInputDataType_tests::unsupportedUrlProtocol()
     inputArgs[1] = arg2;
     try
     {
-        inputDataType functionResult = defineInputDataType(argc, inputArgs);
+        dataType functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
@@ -137,7 +137,7 @@ void defineInputDataType_tests::extraCharactersInArgument()
     inputArgs[1] = arg2;
     try
     {
-        inputDataType functionResult = defineInputDataType(argc, inputArgs);
+        dataType functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
@@ -157,7 +157,7 @@ void defineInputDataType_tests::invalidNumberOfArguments()
     inputArgs[2] = arg3;
     try
     {
-        inputDataType functionResult = defineInputDataType(argc, inputArgs);
+        dataType functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {

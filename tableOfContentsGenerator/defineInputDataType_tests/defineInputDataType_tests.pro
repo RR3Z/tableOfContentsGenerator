@@ -10,4 +10,4 @@ TEMPLATE = app
 SOURCES +=  tst_defineinputdatatype_tests.cpp \
             ../tableOfContentsGenerator_main/tableOfContentsGenerator.cpp
 
-HEADER += ../tableOfContentsGenerator_main/tableOfContentsGenerator.h
+HEADERS += ../tableOfContentsGenerator_main/tableOfContentsGenerator.h

@@ -1,6 +1,6 @@
 #include "tableOfContentsGenerator.h"
 
-inputDataType defineInputDataType (const int argsCounter, const char* inputArgs[])
+dataType defineInputDataType (const int argsCounter, const char* inputArgs[])
 {
     // Если с запуском программы не был передан аргумент c входными данными...
     if (argsCounter == 1)
