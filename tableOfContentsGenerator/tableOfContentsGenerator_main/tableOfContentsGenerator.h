@@ -2,6 +2,10 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QDir>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+#include <QEventLoop>
 
 /*!
 * \Перечисление типов входных данных

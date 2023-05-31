@@ -161,3 +161,31 @@ void readInputDataFromFile (const QString inputPath, QString& inputData)
     // Закрыть доступ к файлу
     file.close();
 }
+
+void uploadHtmlCodeByUrl (const QString url, QString& inputData)
+{
+    QNetworkAccessManager manager;
+
+    // Отправить запрос на сайт
+    QNetworkReply *reply = manager.get(QNetworkRequest(QUrl(url)));
+
+    // Ожидание завершения запроса
+    QEventLoop loop;
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    // Если сайт вернул ответ...
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        // Выгрузить HTML-код страницы в inputData
+        inputData = reply->readAll().simplified();
+    }
+    // Иначе выкинуть ошибку: "Ошибка загрузки страницы '#'"
+    else
+    {
+        throw QString("Ошибка загрузки страницы '" + reply->errorString() + "'");
+    }
+
+    // Освободить ресурсы
+    reply->deleteLater();
+}

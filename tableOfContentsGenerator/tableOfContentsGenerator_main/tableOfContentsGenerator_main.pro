@@ -1,5 +1,3 @@
-QT = core
-
 CONFIG += c++17 cmdline
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -19,3 +17,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     findHeaders.h \
     tableOfContentsGenerator.h
+
+QT += network
+QT += core
