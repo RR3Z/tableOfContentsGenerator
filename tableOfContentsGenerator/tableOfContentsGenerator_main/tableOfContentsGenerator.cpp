@@ -82,19 +82,19 @@ void generateTableOfContents (const QList<Header>& headersList, QString& tableOf
     // Для всех найденных h заголовков...
     for(const auto& currentHeader: headersList)
     {
-        // Пока уровень текущего заголовка меньше, чем максимальный уровень списка...
+        // Пока уровень текущего заголовка меньше, чем уровень предыдущего заголовка...
         while (currentHeader.level < prevLevel) {
             // Добавить закрывающий список тег в оглавление
             tableOfContents.append("</ul>\n");
-            // Уменьшить максимальный уровень списка
+            // Уменьшить уровень предыдущего заголовка
             prevLevel--;
         }
 
-        // Пока уровень текущего заголовка больше, чем максимальный уровень списка...
+        // Пока уровень текущего заголовка больше, чем уровень предыдущего заголовка...
         while (currentHeader.level > prevLevel) {
             // Добавить открывающий список тег в оглавление
             tableOfContents.append("<ul>\n");
-            // Увеличить максимальный уровень списка
+            // Увеличить уровень предыдущего заголовка
             prevLevel++;
         }
 
@@ -106,7 +106,7 @@ void generateTableOfContents (const QList<Header>& headersList, QString& tableOf
     while (prevLevel > 0) {
         // Добавить закрывающий список тег в оглавление
         tableOfContents.append("</ul>\n");
-        // Уменьшить максимальный уровень списка
+        // Уменьшить уровень предыдущего заголовка
         prevLevel--;
     }
 }
