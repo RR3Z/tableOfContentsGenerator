@@ -24,16 +24,18 @@ dataType defineInputDataType (const int argsCounter, char* inputArgs[])
         throw QString("Аргумент, переданный с запуском программы, содержит недопустимые пробелы в начале");
     }
 
-    // Если второй аргумент, переданный с запуском программы, содержит протокол URL-адреса...
+    // Если второй аргумент, переданный с запуском программы, содержит корректно заданный протокол URL-адреса...
     if (inputPath.startsWith("http://") || inputPath.startsWith("https://"))
     {
         // В качестве результата выполнения функции вернуть значение URL_TYPE
         return URL_TYPE;
     }
 
+    // Если второй аргумент, переданный с запуском программы, содержит неверный протокол URL-адреса...
     if(inputPath.contains("://"))
     {
-        throw QString("Непподерживаемый протокол URL-адреса (должен быть 'http://' или 'https://'): " + inputPath);
+        // Выкинуть ошибку: "Неподдерживаемый  протокол URL-адреса (должен быть 'http://' или 'https://'): '#'"
+        throw QString("Неподдерживаемый  протокол URL-адреса (должен быть 'http://' или 'https://'): " + inputPath);
     }
 
     QFileInfo file(inputPath);
@@ -107,8 +109,6 @@ void generateTableOfContents (const QList<Header>& headersList, QString& tableOf
         // Уменьшить максимальный уровень списка
         prevLevel--;
     }
-
-    qDebug() << tableOfContents;
 }
 
 void saveDataToFile (const QString outputData)
