@@ -123,7 +123,7 @@ void defineInputDataType_tests::unsupportedUrlProtocol()
     }
     catch (QString exceptionMessage)
     {
-        QCOMPARE(exceptionMessage,"Непподерживаемый протокол URL-адреса (должен быть 'http://' или 'https://'): file:///C:/Users/student/Downloads/4d6.jpeg");
+        QCOMPARE(exceptionMessage,"Неподдерживаемый  протокол URL-адреса (должен быть 'http://' или 'https://'): file:///C:/Users/student/Downloads/4d6.jpeg");
     }
 }
 
