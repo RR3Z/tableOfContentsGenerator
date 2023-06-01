@@ -4,6 +4,7 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 {
     Header header;
     Header nestedHeader;
+    // Найти все корректно заданные h заголовки в HTML-коде
     static QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator = correctHeaderRegex.globalMatch(htmlCode);
     QRegularExpressionMatch match;
@@ -25,6 +26,7 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 
 void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& openTagHeadersPos)
 {
+    // Найти в HTML-коде все открывающие h заголовки теги
     static QRegularExpression openTagHeader("<h([1-6])[^>]*>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator = openTagHeader.globalMatch(htmlCode);
     QRegularExpressionMatch match;
@@ -52,6 +54,7 @@ void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& he
 
 void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& closeTagHeadersPos)
 {
+    // Найти в HTML-коде все закрывающие h заголовки теги
     static QRegularExpression closeTagHeader("</h([1-6])>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator = closeTagHeader.globalMatch(htmlCode);
     QRegularExpressionMatch match;
@@ -79,6 +82,7 @@ void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& h
 
 void findAllComments(const QString& htmlCode, QList<Comment>& commentsList)
 {
+    // Найти в HTML-коде все комментарии
     static QRegularExpression commentsRegex("<!--(.*?)-->", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator = commentsRegex.globalMatch(htmlCode);
     QRegularExpressionMatch match;
@@ -106,8 +110,9 @@ void getRidOfCommentedCorrectHeaders(QList<Comment> commentsList, QList<Header>&
     // Для каждого комментария из контейнера commentsList...
     for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
     {
-        // Если текущий комментарий содержит в себе корректно заданный h заголовок...
+        // Найти в текущем комментарии корректно заданный h заголовок
         match = correctHeaderRegex.match(currentComment->rawData);
+        // Если текущий комментарий содержит в себе корректно заданный h заголовок...
         if(match.hasMatch())
         {
             // Сохранить позицию открывающего корректно заданный h заголовок тега в контейнер
@@ -149,8 +154,9 @@ void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment> commentsList, QLis
         // Для каждого комментария из контейнера commentsList...
         for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
         {
-            // Если текущий комментарий содержит в себе открывающий h заголовок тег / теги...
+            // Найти в текущем комментарии все открывающие h заголовок теги
             matchIterator = openTagHeader.globalMatch(currentComment->rawData);
+            // Пока не будут обработаны все открывающие h заголовк теги в текущем комментарии...
             while(matchIterator.hasNext())
             {
                 match = matchIterator.next();
@@ -181,8 +187,9 @@ void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment> commentsList, QLis
         // Для каждого комментария из контейнера commentsList...
         for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
         {
-            // Если текущий комментарий содержит в себе закрывающий h заголовок тег / теги...
+            // Найти в текущем комментарии все закрывающие h заголовок теги
             matchIterator = closeTagHeader.globalMatch(currentComment->rawData);
+            // Пока не будут обработаны все закрывающие h заголовк теги в текущем комментарии...
             while(matchIterator.hasNext())
             {
                 match = matchIterator.next();
@@ -190,7 +197,7 @@ void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment> commentsList, QLis
                 // Если найденный закрывающий h заголовок тег имеется в контейнере closeTagHeadersPos...
                 if (closeTagHeadersPos.contains(currentComment->startPos + match.capturedEnd() - 1))
                 {
-                    // Удалить закомментированный открывающий h заголовок тег из контейнера openTagHeadersPos
+                    // Удалить закомментированный закрывающий h заголовок тег из контейнера closeTagHeadersPos
                     closeTagHeadersPos.removeAt(closeTagHeadersPos.indexOf(currentComment->startPos + match.capturedEnd() - 1));
                 }
             }
@@ -233,7 +240,7 @@ void findHeaders (const QString& htmlCode, QList<Header>& headersList)
     findSeperateOpenTagHeaders(htmlCode, headersList, openTagHeadersPos);
     // Найти h заголовки в HTML-коде, для которых отсутствует открывающий тег...
     findSeperateCloseTagHeaders(htmlCode, headersList, closeTagHeadersPos);
-    // Удалить задокументированные корректно заданные h заголовки из контейнера с найденными h заголовками...
+    // Удалить закомментированные корректно заданные h заголовки из контейнера с найденными h заголовками...
     getRidOfCommentedCorrectHeaders(commentsList, headersList);
     // Проверить найденные корректно заданные h заголовки на вложенность в них других корректно заданных h заголовков...
     checkForNestedHeaders(headersList);
@@ -249,7 +256,7 @@ void findHeaders (const QString& htmlCode, QList<Header>& headersList)
         throw QString("Для заголовка, который начинается на позиции '" + QString::number(openTagHeadersPos.at(0)) + "', отсутствует закрывающий тег");
     }
 
-    // Если был найден хотя бы один h заголовок, без открвыющего его тега...
+    // Если был найден хотя бы один h заголовок, без открывающего его тега...
     if(closeTagHeadersPos.count() > 0)
     {
         // Выкинуть ошибку: "Для заголовка, который заканчивается на позиции '#', отсутствует открывающий тег"
