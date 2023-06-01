@@ -5,6 +5,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    setlocale(LC_ALL, "Russian");
+
     dataType inputDataType;
     QString inputData;
     QList<Header> headersList;
@@ -48,7 +50,7 @@ int main(int argc, char *argv[])
     catch (QString exceptionMessage)
     {
         // Вывести пользователю сообщение об ошибке
-        cout << exceptionMessage.toStdString() << endl;
+        qDebug() << exceptionMessage;
     }
 
     return a.exec();
