@@ -52,7 +52,7 @@ struct Comment
 void findHeaders (const QString& htmlCode, QList<Header>& headersList);
 
 /*!
-* \Найти корректно заданные h заголовки (в том числе задокумментированные)
+* \Найти корректно заданные h заголовки (в том числе закомментированные)
 * \param[in] htmlCode - строка с HTML-кодом
 * \param[in,out] headersList - контейнер, куда будут сохраняться найденные h заголовки
 */
