@@ -83,6 +83,8 @@ void findHeaders_tests::nestedHeaderIsAvailable()
     {
         QCOMPARE(exception, "Для заголовка '<h1>H1<h2>H2</h2></h1>', который начинается с позиции '6', имеется вложенный заголовок '<h2>H2</h2>'");
     }
+
+    QCOMPARE(headersList.count(), 1);
 }
 
 void findHeaders_tests::headerWithoutOpeningTag()
@@ -98,6 +100,8 @@ void findHeaders_tests::headerWithoutOpeningTag()
     {
         QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '12', отсутствует открывающий тег");
     }
+
+    QCOMPARE(headersList.count(), 0);
 }
 
 void findHeaders_tests::headerWithoutClosingTag()
@@ -113,6 +117,8 @@ void findHeaders_tests::headerWithoutClosingTag()
     {
         QCOMPARE(exception, "Для заголовка, который начинается на позиции '6', отсутствует закрывающий тег");
     }
+
+    QCOMPARE(headersList.count(), 0);
 }
 
 void findHeaders_tests::correctHeaderAndHeaderWithoutOpeningTag()
@@ -128,6 +134,8 @@ void findHeaders_tests::correctHeaderAndHeaderWithoutOpeningTag()
     {
         QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '27', отсутствует открывающий тег");
     }
+
+    QCOMPARE(headersList.count(), 1);
 }
 
 void findHeaders_tests::correctHeaderAndHeaderWithoutClosingTag()
@@ -143,6 +151,8 @@ void findHeaders_tests::correctHeaderAndHeaderWithoutClosingTag()
     {
         QCOMPARE(exception, "Для заголовка, который начинается на позиции '21', отсутствует закрывающий тег");
     }
+
+    QCOMPARE(headersList.count(), 1);
 }
 
 void findHeaders_tests::fewCommentedCorrectHeaders()
@@ -463,6 +473,8 @@ void findHeaders_tests::nestedHeaderWithoutClosingTag()
     {
         QCOMPARE(exception, "Для заголовка, который начинается на позиции '6', отсутствует закрывающий тег");
     }
+
+    QCOMPARE(headersList.count(), 1);
 }
 
 void findHeaders_tests::nestedHeaderWithoutOpeningTag()
@@ -478,6 +490,8 @@ void findHeaders_tests::nestedHeaderWithoutOpeningTag()
     {
         QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '13', отсутствует открывающий тег");
     }
+
+    QCOMPARE(headersList.count(), 1);
 }
 
 void findHeaders_tests::nestedHeaderWithoutOpeningTagInNestedHeader()
@@ -493,6 +507,8 @@ void findHeaders_tests::nestedHeaderWithoutOpeningTagInNestedHeader()
     {
         QCOMPARE(exception, "Для заголовка '<h1>H1<h2>H3</h3>H2</h2></h1>', который начинается с позиции '0', имеется вложенный заголовок '<h2>H3</h3>H2</h2>'");
     }
+
+    QCOMPARE(headersList.count(), 1);
 }
 
 void findHeaders_tests::complexTest()
