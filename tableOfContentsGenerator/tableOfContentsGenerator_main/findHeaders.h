@@ -96,7 +96,7 @@ void getRidOfCommentedCorrectHeaders(QList<Comment> commentsList, QList<Header>&
 void getRidOfCommentedHeadersWithoutClosingTag(QList<Comment> commentsList, QList<int>& openTagHeadersPos);
 
 /*!
-* \Избавиться от закомментированных h заголовков без открывающего их тега из контейнера с позициями закрывающих h заголовки тегов
+* \Избавиться от закомментированных h заголовков без открывающего их тега
 * \param[in] commentsList - контейнер с комментариями
 * \param[in,out] closeTagHeadersPos - контейнер c позициями закрывающих h заголовки тегов, для которых отсутствуют открывающие h заголовки теги
 */
