@@ -143,7 +143,7 @@ void saveDataToFile (const QString& outputData)
 
 }
 
-void readInputDataFromFile (const QString inputPath, QString& inputData)
+void readInputDataFromFile (const QString& inputPath, QString& inputData)
 {
     QFile file(inputPath);
 

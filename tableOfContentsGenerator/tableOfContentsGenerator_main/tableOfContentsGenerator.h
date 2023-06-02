@@ -39,7 +39,7 @@ void uploadHtmlCodeByUrl (const QString url, QString& inputData);
 * \param[in,out] inputData - строка с содержимым файла
 * \throw - выбрасывает исключения в случае ошибок
 */
-void readInputDataFromFile (const QString inputPath, QString& inputData);
+void readInputDataFromFile (const QString& inputPath, QString& inputData);
 
 /*!
 * \Сгенерировать оглавление HTML-страницы
