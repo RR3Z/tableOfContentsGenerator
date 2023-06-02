@@ -12,7 +12,8 @@
 */
 enum dataType{
     FILE_TYPE = 0,
-    URL_TYPE = 1
+    URL_TYPE = 1,
+    WRONG_TYPE = 2
 };
 
 /*!
