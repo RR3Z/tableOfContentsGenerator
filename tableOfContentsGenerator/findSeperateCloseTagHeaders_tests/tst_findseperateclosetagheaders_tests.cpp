@@ -13,6 +13,7 @@ private slots:
     void nestedHeaderWithoutOpeningTag();
     void nestedCorrectHeader();
     void fewHeadersWithoutOpeningTag();
+    void commentedHeaderWithoutOpeningTag();
 };
 
 void findSeperateCloseTagHeaders_tests::headerWithoutClosingTag()
@@ -134,6 +135,19 @@ void findSeperateCloseTagHeaders_tests::fewHeadersWithoutOpeningTag()
     QList<int> closeTagHeadersPos = {};
 
     QList<int> expectedCloseTagHeadersPos = {12, 19, 26};
+
+    findSeperateCloseTagHeaders(htmlCode, headersList, closeTagHeadersPos);
+
+    QCOMPARE(closeTagHeadersPos, expectedCloseTagHeadersPos);
+}
+
+void findSeperateCloseTagHeaders_tests::commentedHeaderWithoutOpeningTag()
+{
+    QString htmlCode = "<html><!--H1</h1>-->H2</h2>H3</h3></html>";
+    QList<Header> headersList = {};
+    QList<int> closeTagHeadersPos = {};
+
+    QList<int> expectedCloseTagHeadersPos = {16, 26, 33};
 
     findSeperateCloseTagHeaders(htmlCode, headersList, closeTagHeadersPos);
 
