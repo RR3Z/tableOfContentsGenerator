@@ -14,6 +14,7 @@ private slots:
     void fewHeadersWithoutClosingTag();
     void fewCorrectHeaders();
     void headerWithoutClosingTagWithAttribute();
+    void commentedHeaderWithoutClosingTag();
 };
 
 void findSeparateOpenTagHeaders_tests::headerWithoutClosingTag()
@@ -180,6 +181,19 @@ void findSeparateOpenTagHeaders_tests::headerWithoutClosingTagWithAttribute()
     QList<int> openTagHeadersPos = {};
 
     QList<int> expectedOpenTagHeadersPos = {6};
+
+    findSeperateOpenTagHeaders(htmlCode, headersList, openTagHeadersPos);
+
+    QCOMPARE(openTagHeadersPos, expectedOpenTagHeadersPos);
+}
+
+void findSeparateOpenTagHeaders_tests::commentedHeaderWithoutClosingTag()
+{
+    QString htmlCode = "<html><!--<h1>H1--></html>";
+    QList<Header> headersList = {};
+    QList<int> openTagHeadersPos = {};
+
+    QList<int> expectedOpenTagHeadersPos = {10};
 
     findSeperateOpenTagHeaders(htmlCode, headersList, openTagHeadersPos);
 
