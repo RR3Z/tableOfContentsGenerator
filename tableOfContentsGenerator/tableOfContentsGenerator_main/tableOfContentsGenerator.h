@@ -53,7 +53,7 @@ void generateTableOfContents (const QList<Header>& headersList, QString& tableOf
 * \param[in] outputData - строка с данными, которые требуется сохранить в файл
 * \throw - выбрасывает исключения в случае ошибок
 */
-void saveDataToFile (const QString outputData);
+void saveDataToFile (const QString& outputData);
 
 /*!
 * \Проверить контейнер на пустое

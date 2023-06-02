@@ -111,7 +111,7 @@ void generateTableOfContents (const QList<Header>& headersList, QString& tableOf
     }
 }
 
-void saveDataToFile (const QString outputData)
+void saveDataToFile (const QString& outputData)
 {
     QString outputPath = "./Result/result.html";
     QFile outputFile(outputPath);
