@@ -162,7 +162,7 @@ void readInputDataFromFile (const QString& inputPath, QString& inputData)
     file.close();
 }
 
-void uploadHtmlCodeByUrl (const QString url, QString& inputData)
+void uploadHtmlCodeByUrl (const QString& url, QString& inputData)
 {
     QNetworkAccessManager manager;
 

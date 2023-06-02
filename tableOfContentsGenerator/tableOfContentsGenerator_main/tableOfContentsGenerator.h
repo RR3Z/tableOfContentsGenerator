@@ -31,7 +31,7 @@ dataType defineInputDataType (const int& argsCounter, char* inputArgs[]);
 * \param[in,out] inputData – строка с выгруженным HTML-кодом страницы
 * \throw - выбрасывает исключения в случае ошибок
 */
-void uploadHtmlCodeByUrl (const QString url, QString& inputData);
+void uploadHtmlCodeByUrl (const QString& url, QString& inputData);
 
 /*!
 * \Считать входные данные из файла
