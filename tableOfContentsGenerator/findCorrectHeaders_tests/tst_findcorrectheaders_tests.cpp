@@ -15,6 +15,7 @@ private slots:
     void commentedHeaderWithoutOpeningTag();
     void commentedHeaderWithoutClosingTag();
     void correctHeaderWithAttribute();
+    void nestedHeader();
 };
 
 void findCorrectHeaders_tests::noCorrectHeaders()
@@ -185,6 +186,25 @@ void findCorrectHeaders_tests::correctHeaderWithAttribute()
     header.rawData = "<h1 class=\"my-heading\">H1</h1>";
     header.startPos = 6;
     header.endPos = 35;
+    expectedHeadersList.append(header);
+
+    findCorrectHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findCorrectHeaders_tests::nestedHeader()
+{
+    QString htmlCode = "<html><h1>H1<h2>H2</h2></h1></html>";
+    QList<Header> headersList = {};
+
+    QList<Header> expectedHeadersList = {};
+    Header header;
+    header.level = 1;
+    header.content = "H1<h2>H2</h2>";
+    header.rawData = "<h1>H1<h2>H2</h2></h1>";
+    header.startPos = 6;
+    header.endPos = 27;
     expectedHeadersList.append(header);
 
     findCorrectHeaders(htmlCode, headersList);
