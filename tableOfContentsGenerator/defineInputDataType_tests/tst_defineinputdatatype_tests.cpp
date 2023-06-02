@@ -50,14 +50,16 @@ void defineInputDataType_tests::unsupportedInputFileFormat()
     char arg2[] = "../../testFiles/defineInputDataType_tests/unsupportedInputFileFormat.txt";
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
+    dataType functionResult = WRONG_TYPE;
     try
     {
-        dataType functionResult = defineInputDataType(argc, inputArgs);
+        functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
         QCOMPARE(exceptionMessage,"Формат входного файла по пути '../../testFiles/defineInputDataType_tests/unsupportedInputFileFormat.txt' не соответствует требованиям ПО (должен быть 'html')");
     }
+    QCOMPARE(functionResult, WRONG_TYPE);
 }
 
 void defineInputDataType_tests::specifiedFileIsMissing()
@@ -68,15 +70,16 @@ void defineInputDataType_tests::specifiedFileIsMissing()
     char arg2[] = "../../testFiles/defineInputDataType_tests/noSuchFile.exe";
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
+    dataType functionResult = WRONG_TYPE;
     try
     {
-        dataType functionResult = defineInputDataType(argc, inputArgs);
+        functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
         QCOMPARE(exceptionMessage,"По пути '../../testFiles/defineInputDataType_tests/noSuchFile.exe' нет заданного файла");
     }
-
+    QCOMPARE(functionResult, WRONG_TYPE);
 }
 
 void defineInputDataType_tests::inputDataIsMissing()
@@ -85,15 +88,16 @@ void defineInputDataType_tests::inputDataIsMissing()
     char* inputArgs[1];
     char arg1[] = "generateTableOfContents.exe";
     inputArgs[0] = arg1;
+    dataType functionResult = WRONG_TYPE;
     try
     {
-        dataType functionResult = defineInputDataType(argc, inputArgs);
+        functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
         QCOMPARE(exceptionMessage,"Отсутствует аргумент с входными данными");
     }
-
+    QCOMPARE(functionResult, WRONG_TYPE);
 }
 
 void defineInputDataType_tests::httpSupportedUrlProtocol()
@@ -117,14 +121,16 @@ void defineInputDataType_tests::unsupportedUrlProtocol()
     char arg2[] = "file:///C:/Users/student/Downloads/4d6.jpeg";
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
+    dataType functionResult = WRONG_TYPE;
     try
     {
-        dataType functionResult = defineInputDataType(argc, inputArgs);
+        functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
         QCOMPARE(exceptionMessage,"Неподдерживаемый  протокол URL-адреса (должен быть 'http://' или 'https://'): file:///C:/Users/student/Downloads/4d6.jpeg");
     }
+    QCOMPARE(functionResult, WRONG_TYPE);
 }
 
 void defineInputDataType_tests::extraCharactersInArgument()
@@ -135,14 +141,16 @@ void defineInputDataType_tests::extraCharactersInArgument()
     char arg2[] = "    ../testFiles/defineInputDataType_tests/extraCharactersInArgument.html";
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
+    dataType functionResult = WRONG_TYPE;
     try
     {
-        dataType functionResult = defineInputDataType(argc, inputArgs);
+        functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
         QCOMPARE(exceptionMessage,"Аргумент, переданный с запуском программы, содержит недопустимые пробелы в начале");
     }
+    QCOMPARE(functionResult, WRONG_TYPE);
 }
 
 void defineInputDataType_tests::invalidNumberOfArguments()
@@ -155,14 +163,16 @@ void defineInputDataType_tests::invalidNumberOfArguments()
     inputArgs[0] = arg1;
     inputArgs[1] = arg2;
     inputArgs[2] = arg3;
+    dataType functionResult = WRONG_TYPE;
     try
     {
-        dataType functionResult = defineInputDataType(argc, inputArgs);
+        functionResult = defineInputDataType(argc, inputArgs);
     }
     catch (QString exceptionMessage)
     {
         QCOMPARE(exceptionMessage,"Неверное количество переданных аргументов (больше 2)");
     }
+    QCOMPARE(functionResult, WRONG_TYPE);
 }
 
 QTEST_APPLESS_MAIN(defineInputDataType_tests)
