@@ -131,7 +131,7 @@ void saveDataToFile (const QString& outputData)
     if(!outputFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
         // Выкинуть исключение: "Отсутствует доступ к файлу 'result.html', по пути 'ПОЛНЫЙ ПУТЬ К ФАЙЛУ'"
-        throw QString("Отсутствует доступ к файлу 'result.html', по пути '" + outputFile.fileName());
+        throw QString("Отсутствует доступ к файлу 'result.html', по пути '" + outputFile.fileName() + "'");
     }
 
     // Сохранить данные в файл
