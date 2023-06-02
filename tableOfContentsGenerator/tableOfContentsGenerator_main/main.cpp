@@ -46,6 +46,9 @@ int main(int argc, char *argv[])
 
         // Сохранить сгенерированное оглавление в файл...
         saveDataToFile(tableOfContents);
+
+        // Вывести пользователю сообщение о завершении работы программы
+        qDebug() << "Работа программы успешно завершена!";
     }
     catch (QString exceptionMessage)
     {
