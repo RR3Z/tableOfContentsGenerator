@@ -35,6 +35,8 @@ private slots:
     void correctHeaderWithCommentedClosingTag();
     void correctHeaderWithCommentedOpeningAndClosingTag();
     void commentInCorrectHeaderContent();
+    void commentedNestedHeaderOpeningTag();
+    void commentedNestedHeaderClosingTag();
 };
 
 void findHeaders_tests::headersAreAvailable()
@@ -659,6 +661,40 @@ void findHeaders_tests::commentInCorrectHeaderContent()
     findHeaders(htmlCode, headersList);
 
     QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findHeaders_tests::commentedNestedHeaderOpeningTag()
+{
+    QString htmlCode = "<h1>Example Domain<!--<h2>-->H2</h2></h1>";
+    QList<Header> headersList;
+
+    try
+    {
+        findHeaders(htmlCode, headersList);
+    }
+    catch(QString exception)
+    {
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '35', отсутствует открывающий тег");
+    }
+
+    QCOMPARE(headersList.count(), 1);
+}
+
+void findHeaders_tests::commentedNestedHeaderClosingTag()
+{
+    QString htmlCode = "<h1>Example Domain<h2>H2<!--</h2>--></h1>";
+    QList<Header> headersList;
+
+    try
+    {
+        findHeaders(htmlCode, headersList);
+    }
+    catch(QString exception)
+    {
+        QCOMPARE(exception, "Для заголовка, который начинается на позиции '18', отсутствует закрывающий тег");
+    }
+
+    QCOMPARE(headersList.count(), 1);
 }
 
 QTEST_APPLESS_MAIN(findHeaders_tests)
