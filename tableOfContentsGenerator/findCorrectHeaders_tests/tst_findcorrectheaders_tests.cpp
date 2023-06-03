@@ -16,6 +16,10 @@ private slots:
     void commentedHeaderWithoutClosingTag();
     void correctHeaderWithAttribute();
     void nestedHeader();
+    void correctHeaderWithCommentedOpeningTag();
+    void correctHeaderWithCommentedClosingTag();
+    void correctHeaderWithCommentedOpeningAndClosingTag();
+    void commentInCorrectHeaderContent();
 };
 
 void findCorrectHeaders_tests::noCorrectHeaders()
@@ -205,6 +209,61 @@ void findCorrectHeaders_tests::nestedHeader()
     header.rawData = "<h1>H1<h2>H2</h2></h1>";
     header.startPos = 6;
     header.endPos = 27;
+    expectedHeadersList.append(header);
+
+    findCorrectHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findCorrectHeaders_tests::correctHeaderWithCommentedOpeningTag()
+{
+    QString htmlCode = "<!--<h1>-->H1</h1>";
+    QList<Header> headersList = {};
+
+    QList<Header> expectedHeadersList = {};
+
+    findCorrectHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findCorrectHeaders_tests::correctHeaderWithCommentedClosingTag()
+{
+    QString htmlCode = "<h1>H1<!--</h1>-->";
+    QList<Header> headersList = {};
+
+    QList<Header> expectedHeadersList = {};
+
+    findCorrectHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findCorrectHeaders_tests::correctHeaderWithCommentedOpeningAndClosingTag()
+{
+    QString htmlCode = "<!--<h1>-->H1<!--</h1>-->";
+    QList<Header> headersList = {};
+
+    QList<Header> expectedHeadersList = {};
+
+    findCorrectHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findCorrectHeaders_tests::commentInCorrectHeaderContent()
+{
+    QString htmlCode = "<h1><!--Text-->H1</h1>";
+    QList<Header> headersList = {};
+
+    QList<Header> expectedHeadersList = {};
+    Header header;
+    header.level = 1;
+    header.content = "<!--Text-->H1";
+    header.rawData = "<h1><!--Text-->H1</h1>";
+    header.startPos = 0;
+    header.endPos = 21;
     expectedHeadersList.append(header);
 
     findCorrectHeaders(htmlCode, headersList);
