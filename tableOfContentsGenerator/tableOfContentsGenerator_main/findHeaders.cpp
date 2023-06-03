@@ -142,14 +142,14 @@ void findAllComments(const QString& htmlCode, QList<Comment>& commentsList)
     }
 }
 
-void getRidOfCommentedCorrectHeaders(QList<Comment> commentsList, QList<Header>& headersList)
+void getRidOfCommentedCorrectHeaders(const QList<Comment>& commentsList, QList<Header>& headersList)
 {
     static QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatch match;
     QList<int> commentedHeadersPos;
 
     // Для каждого комментария из контейнера commentsList...
-    for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
+    for (QList<Comment>::const_iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
     {
         // Найти в текущем комментарии корректно заданный h заголовок
         match = correctHeaderRegex.match(currentComment->rawData);
