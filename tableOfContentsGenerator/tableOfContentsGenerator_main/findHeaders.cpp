@@ -253,22 +253,38 @@ void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment> commentsList, QLis
 void checkForNestedHeaders(const QList<Header>& headersList)
 {
     static QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
-    QRegularExpressionMatch match;
+    static QRegularExpression commentedOpenTagHeaderRegex("<!--\\s*<h([1-6])[^>]*>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression commentedCloseTagHeaderRegex("<!--\\s*</h([1-6])>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
+    QRegularExpressionMatch firstMatch;
+    QRegularExpressionMatch secondMatch;
+
     // Для всех найденных корректно заданных h заголовков...
     for(int i = 0; i<headersList.count(); i++)
     {
-        match = correctHeaderRegex.match(headersList.at(i).content);
+        firstMatch = correctHeaderRegex.match(headersList.at(i).content);
         // Если внутри текущего h заголовка нашелся вложенный h заголовок...
-        if(match.hasMatch())
+        if(firstMatch.hasMatch())
         {
-            // Выкинуть ошибку: "В заголовке: '#' имеется вложенный заголовок '#'"
-            throw QString("Для заголовка '" + headersList.at(i).rawData + "', который начинается с позиции '" + QString::number(headersList.at(i).startPos) + "', имеется вложенный заголовок '" + match.captured() + "'");
+            // Если внутри текущего h заголовка не нашелся закомментированный открывающий h заголовок тег...
+            secondMatch = commentedOpenTagHeaderRegex.match(headersList.at(i).content);
+            if(!secondMatch.hasMatch())
+            {
+                // Если внутри текущего h заголовка не нашелся закомментированный закрывающий h заголовок тег...
+                secondMatch = commentedCloseTagHeaderRegex.match(headersList.at(i).content);
+                if(!secondMatch.hasMatch())
+                {
+                    // Выкинуть ошибку: "В заголовке: '#' имеется вложенный заголовок '#'"
+                    throw QString("Для заголовка '" + headersList.at(i).rawData + "', который начинается с позиции '" + QString::number(headersList.at(i).startPos) + "', имеется вложенный заголовок '" + firstMatch.captured() + "'");
+                }
+            }
         }
     }
 }
 
 void findHeaders (const QString& htmlCode, QList<Header>& headersList)
 {
+    setlocale(LC_ALL, "Russian");
+
     QList<int> closeTagHeadersPos;
     QList<int> openTagHeadersPos;
     QList<Comment> commentsList;
@@ -304,4 +320,3 @@ void findHeaders (const QString& htmlCode, QList<Header>& headersList)
         throw QString("Для заголовка, который заканчивается на позиции '" + QString::number(closeTagHeadersPos.at(0)) + "', отсутствует открывающий тег");
     }
 }
-
