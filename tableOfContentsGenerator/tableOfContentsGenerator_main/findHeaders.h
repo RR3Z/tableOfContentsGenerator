@@ -100,7 +100,7 @@ void getRidOfCommentedHeadersWithoutClosingTag(const QList<Comment>& commentsLis
 * \param[in] commentsList - контейнер с комментариями
 * \param[in,out] closeTagHeadersPos - контейнер c позициями закрывающих h заголовки тегов, для которых отсутствуют открывающие h заголовки теги
 */
-void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment> commentsList, QList<int>& closeTagHeadersPos);
+void getRidOfCommentedHeadersWithoutOpeningTag(const QList<Comment>& commentsList, QList<int>& closeTagHeadersPos);
 
 /*!
 * \Проверить найденные h заголовки на вложенные в них h заголовки
