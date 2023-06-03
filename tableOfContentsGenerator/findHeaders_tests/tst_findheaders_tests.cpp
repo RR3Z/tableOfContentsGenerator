@@ -31,6 +31,10 @@ private slots:
     void correctHeaderAndHeaderWithoutOpeningTag();
     void correctHeaderAndHeaderWithoutClosingTag();
     void correctHeaderWithAttrubutes();
+    void correctHeaderWithCommentedOpeningTag();
+    void correctHeaderWithCommentedClosingTag();
+    void correctHeaderWithCommentedOpeningAndClosingTag();
+    void commentInCorrectHeaderContent();
 };
 
 void findHeaders_tests::headersAreAvailable()
@@ -585,6 +589,71 @@ void findHeaders_tests::correctHeaderWithAttrubutes()
     header.rawData = "<h6 class=\"subheader\" data=\"info\" style=\"color: red\">H6</h6>";
     header.startPos = 6;
     header.endPos = 65;
+    expectedHeadersList.append(header);
+
+    findHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findHeaders_tests::correctHeaderWithCommentedOpeningTag()
+{
+    QString htmlCode = "<html><!--<h1>-->H1</h1></html>";
+    QList<Header> headersList;
+
+    try
+    {
+        findHeaders(htmlCode, headersList);
+    }
+    catch(QString exception)
+    {
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '23', отсутствует открывающий тег");
+    }
+
+    QCOMPARE(headersList.count(), 0);
+}
+
+void findHeaders_tests::correctHeaderWithCommentedClosingTag()
+{
+    QString htmlCode = "<html><h1>H1<!--</h1>--></html>";
+    QList<Header> headersList;
+
+    try
+    {
+        findHeaders(htmlCode, headersList);
+    }
+    catch(QString exception)
+    {
+        QCOMPARE(exception, "Для заголовка, который начинается на позиции '6', отсутствует закрывающий тег");
+    }
+
+    QCOMPARE(headersList.count(), 0);
+}
+
+void findHeaders_tests::correctHeaderWithCommentedOpeningAndClosingTag()
+{
+    QString htmlCode = "<html><!--<h1>-->H1<!--</h1>--></html>";
+    QList<Header> headersList;
+
+    QList<Header> expectedHeadersList = {};
+
+    findHeaders(htmlCode, headersList);
+
+    QCOMPARE(headersList, expectedHeadersList);
+}
+
+void findHeaders_tests::commentInCorrectHeaderContent()
+{
+    QString htmlCode = "<html><h1><!--Text-->H1</h1></html>";
+    QList<Header> headersList;
+
+    QList<Header> expectedHeadersList = {};
+    Header header;
+    header.level = 1;
+    header.content = "<!--Text-->H1";
+    header.rawData = "<h1><!--Text-->H1</h1>";
+    header.startPos = 6;
+    header.endPos = 27;
     expectedHeadersList.append(header);
 
     findHeaders(htmlCode, headersList);
