@@ -86,7 +86,7 @@ void findAllComments(const QString& htmlCode, QList<Comment>& commentsList);
 * \param[in] commentsList - контейнер с комментариями
 * \param[in,out] headersList - контейнер c найденными h заголовками, который чистят от закомментированных корректно заданных h заголовков
 */
-void getRidOfCommentedCorrectHeaders(QList<Comment> commentsList, QList<Header>& headersList);
+void getRidOfCommentedCorrectHeaders(const QList<Comment>& commentsList, QList<Header>& headersList);
 
 /*!
 * \Избавиться от закомментированных h заголовков без закрывающего их тега
