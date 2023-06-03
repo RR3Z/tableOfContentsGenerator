@@ -3,16 +3,20 @@
 void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 {
     Header header;
-    Header nestedHeader;
+    QList<int> tagHeadersPos;
+    static QRegularExpression commentedOpenTagHeaderRegex("<!--\\s*<h([1-6])[^>]*>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression commentedCloseTagHeaderRegex("<!--\\s*</h([1-6])>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
+
     // Найти все корректно заданные h заголовки в HTML-коде
     static QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator = correctHeaderRegex.globalMatch(htmlCode);
     QRegularExpressionMatch match;
+
     // Для каждого найденного корректно заданного h заголовка...
     while (matchIterator.hasNext())
     {
-        // Получить информацию о заголовке
         match = matchIterator.next();
+        // Получить информацию о заголовке
         header.level = match.captured(1).toInt();
         header.rawData = match.captured();
         header.content = match.captured(2);
@@ -22,6 +26,43 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
         headersList.append(header);
     }
 
+    // Найти все закомментированные открывающие h заголовки теги в HTML-коде
+    matchIterator = commentedOpenTagHeaderRegex.globalMatch(htmlCode);
+
+    // Для каждого закомментированного открывающего h заголовок тега...
+    while (matchIterator.hasNext())
+    {
+        match = matchIterator.next();
+        // Сохранить позицию найденного тега в контейнер tagHeadersPos
+        tagHeadersPos.append(match.capturedStart() + match.captured().indexOf(QRegularExpression("<h([1-6])[^>]*>")));
+    }
+
+    // Найти все закомментированные закрывающие h заголовки теги в HTML-коде
+    matchIterator = commentedCloseTagHeaderRegex.globalMatch(htmlCode);
+
+    // Для каждого закомментированного закрывающего h заголовок тега...
+    while (matchIterator.hasNext())
+    {
+        match = matchIterator.next();
+        // Сохранить позицию найденного тега в контейнер tagHeadersPos
+        tagHeadersPos.append(match.capturedStart() + match.captured().indexOf(QRegularExpression("</h([1-6])>")) + 4);
+    }
+
+    // Для каждого заголовка из контейнера headersList...
+    for (QList<Header>::iterator currentHeader = headersList.begin(); currentHeader != headersList.end(); )
+    {
+        // Если был найден корректно заданный h заголовок с закомментированным тегом открытия/закрытия...
+        if (tagHeadersPos.contains(currentHeader->startPos) || tagHeadersPos.contains(currentHeader->endPos))
+        {
+            // Удалить текущий заголовок из контейнера headersList
+            currentHeader = headersList.erase(currentHeader);
+        }
+        // Иначе перейти к следующему заголовку
+        else
+        {
+            ++currentHeader;
+        }
+    }
 }
 
 void findSeperateOpenTagHeaders(const QString& htmlCode, const QList<Header>& headersList, QList<int>& openTagHeadersPos)
