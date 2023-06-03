@@ -1,4 +1,3 @@
-#include <QCoreApplication>
 #include "tableOfContentsGenerator.h"
 
 int main(int argc, char *argv[])
