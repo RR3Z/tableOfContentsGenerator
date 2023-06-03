@@ -216,7 +216,7 @@ void getRidOfCommentedHeadersWithoutClosingTag(const QList<Comment>& commentsLis
     }
 }
 
-void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment> commentsList, QList<int>& closeTagHeadersPos)
+void getRidOfCommentedHeadersWithoutOpeningTag(const QList<Comment>& commentsList, QList<int>& closeTagHeadersPos)
 {
     static QRegularExpression closeTagHeader("</h([1-6])>", QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatchIterator matchIterator;
@@ -226,7 +226,7 @@ void getRidOfCommentedHeadersWithoutOpeningTag(QList<Comment> commentsList, QLis
     if (closeTagHeadersPos.count() > 0)
     {
         // Для каждого комментария из контейнера commentsList...
-        for (QList<Comment>::iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
+        for (QList<Comment>::const_iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
         {
             // Найти в текущем комментарии все закрывающие h заголовок теги
             matchIterator = closeTagHeader.globalMatch(currentComment->rawData);
