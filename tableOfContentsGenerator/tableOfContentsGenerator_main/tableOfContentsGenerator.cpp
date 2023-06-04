@@ -99,7 +99,7 @@ void generateTableOfContents (const QList<Header>& headersList, QString& tableOf
         }
 
         // Добавить содержимое текущего заголовка в список в таком виде, в каком оно есть
-        tableOfContents += "<li>" + currentHeader.content + "</li>\n";
+        tableOfContents += "<li>" + currentHeader.content.simplified() + "</li>\n";
     }
 
     // Пока имеются незакрытые списки...
