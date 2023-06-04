@@ -1,5 +1,34 @@
+/*!
+*\file
+*\brief Данный файл содержит главную управляющую функцию программы
+*\mainpage Документация для программы "Table of Contents Generator"
+Программа предназначена для сокращения автоматической генерации оглавления HTML-страницы.
+Для функционирования программы необходима операционная система Windows 7 или выше.
+Программа разработана на языке С++ с использованием библиотеки Qt.
+Стандарт языка ISO C++17 (/std:c++17).
+Программа должна получать один аргумент командной строки: имя входного файла в формате html.
+
+Пример команды запуска программы:
+*\code
+tableOfContentsGenerator_main.exe C:\input.html
+*\endcode
+или
+*\code
+tableOfContentsGenerator_main.exe ./input.html
+*\endcode
+*\author Chernobaev Egor
+*\date May 2023
+*\version 1.0
+*/
+
 #include "tableOfContentsGenerator.h"
 
+/*!
+*\brief Главная управляющая функция программы
+*\param[in] argv[0]- путь к программе
+*\param[in] argv[1] - путь к файлу с входными данными
+*\return 0 - запуск программы прошел успешно
+*/
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);

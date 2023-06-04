@@ -1,3 +1,8 @@
+/*!
+*\file
+*\brief Данный  файл содержит в себе реализацию функций, которые используются в findHeaders.
+*/
+
 #include "findHeaders.h"
 
 void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)

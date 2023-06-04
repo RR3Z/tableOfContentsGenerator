@@ -1,3 +1,8 @@
+/*!
+*\file
+*\brief Данный  файл содержит в себе реализацию основных функций, которые используются в программе.
+*/
+
 #include "tableOfContentsGenerator.h"
 
 dataType defineInputDataType (const int& argsCounter, char* inputArgs[])
