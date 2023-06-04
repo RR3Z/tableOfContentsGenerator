@@ -156,7 +156,7 @@ void readInputDataFromFile (const QString& inputPath, QString& inputData)
 
     // Считать данные из файла в inputData
     QByteArray data = file.readAll();
-    inputData = QString::fromUtf8(data).simplified();
+    inputData = QString::fromUtf8(data);
 
     // Закрыть доступ к файлу
     file.close();
@@ -178,7 +178,7 @@ void uploadHtmlCodeByUrl (const QString& url, QString& inputData)
     if (reply->error() == QNetworkReply::NoError)
     {
         // Выгрузить HTML-код страницы в inputData
-        inputData = reply->readAll().simplified();
+        inputData = reply->readAll();
     }
     // Иначе выкинуть ошибку: "Ошибка загрузки страницы '#'"
     else
