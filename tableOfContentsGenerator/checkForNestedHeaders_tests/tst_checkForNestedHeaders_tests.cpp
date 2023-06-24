@@ -28,7 +28,7 @@ void checkForNestedHeaders_tests::nestedCorrectHeader()
     }
     catch (QString exceptionMessage)
     {
-        QCOMPARE(exceptionMessage, "Для заголовка '<h1>H1<h2>H2</h2>1H</h1>', который начинается с позиции '0', имеется вложенный заголовок '<h2>H2</h2>'");
+        QCOMPARE(exceptionMessage, "Для заголовка '<h1>H1<h2>H2</h2>1H</h1>', который начинается с позиции '1', имеется вложенный заголовок '<h2>H2</h2>'");
     }
 }
 
@@ -156,7 +156,7 @@ void checkForNestedHeaders_tests::complexTest()
     }
     catch (QString exceptionMessage)
     {
-        QCOMPARE(exceptionMessage, "Для заголовка '<h1>H1<!--<h1>Nested Header</h1>--><!--<h2>-->Nested Header 2</h2><h3>Nested Header 3<!--</h3>--><h6>Real nested header</h6></h1>', который начинается с позиции '0', имеется вложенный заголовок '<h6>Real nested header</h6>'");
+        QCOMPARE(exceptionMessage, "Для заголовка '<h1>H1<!--<h1>Nested Header</h1>--><!--<h2>-->Nested Header 2</h2><h3>Nested Header 3<!--</h3>--><h6>Real nested header</h6></h1>', который начинается с позиции '1', имеется вложенный заголовок '<h6>Real nested header</h6>'");
     }
 }
 
