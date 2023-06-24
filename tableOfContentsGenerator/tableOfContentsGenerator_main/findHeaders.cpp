@@ -5,20 +5,20 @@
 
 #include "findHeaders.h"
 
-QRegularExpression correctHeaderRegex("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
+QRegularExpression correctHeader("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
 QRegularExpression openTagHeader("<h([1-6])[^>]*>", QRegularExpression::DotMatchesEverythingOption);
 QRegularExpression closeTagHeader("</h([1-6])>", QRegularExpression::DotMatchesEverythingOption);
-QRegularExpression commentRegex("<!--(.*?)-->", QRegularExpression::DotMatchesEverythingOption);
+QRegularExpression comment("<!--(.*?)-->", QRegularExpression::DotMatchesEverythingOption);
 
 void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 {
     Header header;
     QList<int> tagHeadersPos;
-    static QRegularExpression commentedOpenTagHeaderRegex("<!--\\s*<h([1-6])[^>]*>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
-    static QRegularExpression commentedCloseTagHeaderRegex("<!--\\s*</h([1-6])>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression commentedOpenTagHeader("<!--\\s*<h([1-6])[^>]*>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression commentedCloseTagHeader("<!--\\s*</h([1-6])>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
 
     // Найти все корректно заданные h заголовки в HTML-коде
-    QRegularExpressionMatchIterator matchIterator = correctHeaderRegex.globalMatch(htmlCode);
+    QRegularExpressionMatchIterator matchIterator = correctHeader.globalMatch(htmlCode);
     QRegularExpressionMatch match;
 
     // Для каждого найденного корректно заданного h заголовка...
@@ -36,25 +36,25 @@ void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
     }
 
     // Найти все закомментированные открывающие h заголовки теги в HTML-коде
-    matchIterator = commentedOpenTagHeaderRegex.globalMatch(htmlCode);
+    matchIterator = commentedOpenTagHeader.globalMatch(htmlCode);
 
     // Для каждого закомментированного открывающего h заголовок тега...
     while (matchIterator.hasNext())
     {
         match = matchIterator.next();
         // Сохранить позицию найденного тега в контейнер tagHeadersPos
-        tagHeadersPos.append(match.capturedStart() + match.captured().indexOf(QRegularExpression("<h([1-6])[^>]*>")));
+        tagHeadersPos.append(match.capturedStart() + match.captured().indexOf(openTagHeader));
     }
 
     // Найти все закомментированные закрывающие h заголовки теги в HTML-коде
-    matchIterator = commentedCloseTagHeaderRegex.globalMatch(htmlCode);
+    matchIterator = commentedCloseTagHeader.globalMatch(htmlCode);
 
     // Для каждого закомментированного закрывающего h заголовок тега...
     while (matchIterator.hasNext())
     {
         match = matchIterator.next();
         // Сохранить позицию найденного тега в контейнер tagHeadersPos
-        tagHeadersPos.append(match.capturedStart() + match.captured().indexOf(QRegularExpression("</h([1-6])>")) + 4);
+        tagHeadersPos.append(match.capturedStart() + match.captured().indexOf(closeTagHeader) + 4);
     }
 
     // Для каждого заголовка из контейнера headersList...
@@ -131,7 +131,7 @@ void findSeperateCloseTagHeaders(const QString& htmlCode, const QList<Header>& h
 void findAllComments(const QString& htmlCode, QList<Comment>& commentsList)
 {
     // Найти в HTML-коде все комментарии
-    QRegularExpressionMatchIterator matchIterator = commentRegex.globalMatch(htmlCode);
+    QRegularExpressionMatchIterator matchIterator = comment.globalMatch(htmlCode);
     QRegularExpressionMatch match;
     Comment comment;
 
@@ -157,7 +157,7 @@ void getRidOfCommentedCorrectHeaders(const QList<Comment>& commentsList, QList<H
     for (QList<Comment>::const_iterator currentComment = commentsList.begin(); currentComment != commentsList.end(); )
     {
         // Найти в текущем комментарии корректно заданный h заголовок
-        match = correctHeaderRegex.match(currentComment->rawData);
+        match = correctHeader.match(currentComment->rawData);
         // Если текущий комментарий содержит в себе корректно заданный h заголовок...
         if(match.hasMatch())
         {
@@ -263,7 +263,7 @@ void checkForNestedHeaders(const QList<Header>& headersList)
     for(QList<Header>::const_iterator currentHeader = headersList.begin(); currentHeader != headersList.end(); )
     {
         // Найти все комментарии в содержимом текущего h заголовка
-        matchIterator = commentRegex.globalMatch(currentHeader->content);
+        matchIterator = comment.globalMatch(currentHeader->content);
         // Для каждого найденного комментария...
         while (matchIterator.hasNext())
         {
@@ -283,7 +283,7 @@ void checkForNestedHeaders(const QList<Header>& headersList)
         }
 
         // Найти в содержимом текущего заголовка корректно заданный h заголовок
-        matchIterator = correctHeaderRegex.globalMatch(currentHeader->content);
+        matchIterator = correctHeader.globalMatch(currentHeader->content);
         // Для каждого найденного корректно заданного h заголовка...
         while (matchIterator.hasNext())
         {
