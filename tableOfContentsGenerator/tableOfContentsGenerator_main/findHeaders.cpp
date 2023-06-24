@@ -292,7 +292,7 @@ void checkForNestedHeaders(const QList<Header>& headersList)
             if (!commentsInHeaderList.contains(match.capturedStart()) && !commentsInHeaderList.contains(match.capturedEnd() - 1))
             {
                 // Выкинуть ошибку: "В заголовке: '#' имеется вложенный заголовок '#'"
-                throw QString("Для заголовка '" + currentHeader->rawData + "', который начинается с позиции '" + QString::number(currentHeader->startPos) + "', имеется вложенный заголовок '" + match.captured() + "'");
+                throw QString("Для заголовка '" + currentHeader->rawData + "', который начинается с позиции '" + QString::number(currentHeader->startPos + 1) + "', имеется вложенный заголовок '" + match.captured() + "'");
             }
         }
 
@@ -331,13 +331,13 @@ void findHeaders (const QString& htmlCode, QList<Header>& headersList)
     if(openTagHeadersPos.count() > 0)
     {
         // Выкинуть ошибку: "Для заголовка, который начинается на позиции '#', отсутствует закрывающий тег"
-        throw QString("Для заголовка, который начинается на позиции '" + QString::number(openTagHeadersPos.at(0)) + "', отсутствует закрывающий тег");
+        throw QString("Для заголовка, который начинается на позиции '" + QString::number(openTagHeadersPos.at(0) + 1) + "', отсутствует закрывающий тег");
     }
 
     // Если был найден хотя бы один h заголовок, без открывающего его тега...
     if(closeTagHeadersPos.count() > 0)
     {
         // Выкинуть ошибку: "Для заголовка, который заканчивается на позиции '#', отсутствует открывающий тег"
-        throw QString("Для заголовка, который заканчивается на позиции '" + QString::number(closeTagHeadersPos.at(0)) + "', отсутствует открывающий тег");
+        throw QString("Для заголовка, который заканчивается на позиции '" + QString::number(closeTagHeadersPos.at(0) + 1) + "', отсутствует открывающий тег");
     }
 }
