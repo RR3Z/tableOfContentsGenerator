@@ -306,8 +306,6 @@ void checkForNestedHeaders(const QList<Header>& headersList)
 
 void findHeaders (const QString& htmlCode, QList<Header>& headersList)
 {
-    setlocale(LC_ALL, "Russian");
-
     QList<int> closeTagHeadersPos;
     QList<int> openTagHeadersPos;
     QList<Comment> commentsList;
