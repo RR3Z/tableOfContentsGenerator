@@ -87,7 +87,7 @@ void findHeaders_tests::nestedHeaderIsAvailable()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка '<h1>H1<h2>H2</h2></h1>', который начинается с позиции '6', имеется вложенный заголовок '<h2>H2</h2>'");
+        QCOMPARE(exception, "Для заголовка '<h1>H1<h2>H2</h2></h1>', который начинается с позиции '7', имеется вложенный заголовок '<h2>H2</h2>'");
     }
 
     QCOMPARE(headersList.count(), 1);
@@ -104,7 +104,7 @@ void findHeaders_tests::headerWithoutOpeningTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '12', отсутствует открывающий тег");
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '13', отсутствует открывающий тег");
     }
 
     QCOMPARE(headersList.count(), 0);
@@ -121,7 +121,7 @@ void findHeaders_tests::headerWithoutClosingTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который начинается на позиции '6', отсутствует закрывающий тег");
+        QCOMPARE(exception, "Для заголовка, который начинается на позиции '7', отсутствует закрывающий тег");
     }
 
     QCOMPARE(headersList.count(), 0);
@@ -138,7 +138,7 @@ void findHeaders_tests::correctHeaderAndHeaderWithoutOpeningTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '27', отсутствует открывающий тег");
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '28', отсутствует открывающий тег");
     }
 
     QCOMPARE(headersList.count(), 1);
@@ -155,7 +155,7 @@ void findHeaders_tests::correctHeaderAndHeaderWithoutClosingTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который начинается на позиции '21', отсутствует закрывающий тег");
+        QCOMPARE(exception, "Для заголовка, который начинается на позиции '22', отсутствует закрывающий тег");
     }
 
     QCOMPARE(headersList.count(), 1);
@@ -477,7 +477,7 @@ void findHeaders_tests::nestedHeaderWithoutClosingTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который начинается на позиции '6', отсутствует закрывающий тег");
+        QCOMPARE(exception, "Для заголовка, который начинается на позиции '7', отсутствует закрывающий тег");
     }
 
     QCOMPARE(headersList.count(), 1);
@@ -494,7 +494,7 @@ void findHeaders_tests::nestedHeaderWithoutOpeningTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '13', отсутствует открывающий тег");
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '14', отсутствует открывающий тег");
     }
 
     QCOMPARE(headersList.count(), 1);
@@ -511,7 +511,7 @@ void findHeaders_tests::nestedHeaderWithoutOpeningTagInNestedHeader()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка '<h1>H1<h2>H3</h3>H2</h2></h1>', который начинается с позиции '0', имеется вложенный заголовок '<h2>H3</h3>H2</h2>'");
+        QCOMPARE(exception, "Для заголовка '<h1>H1<h2>H3</h3>H2</h2></h1>', который начинается с позиции '1', имеется вложенный заголовок '<h2>H3</h3>H2</h2>'");
     }
 
     QCOMPARE(headersList.count(), 1);
@@ -609,7 +609,7 @@ void findHeaders_tests::correctHeaderWithCommentedOpeningTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '23', отсутствует открывающий тег");
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '24', отсутствует открывающий тег");
     }
 
     QCOMPARE(headersList.count(), 0);
@@ -626,7 +626,7 @@ void findHeaders_tests::correctHeaderWithCommentedClosingTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который начинается на позиции '6', отсутствует закрывающий тег");
+        QCOMPARE(exception, "Для заголовка, который начинается на позиции '7', отсутствует закрывающий тег");
     }
 
     QCOMPARE(headersList.count(), 0);
@@ -674,7 +674,7 @@ void findHeaders_tests::commentedNestedHeaderOpeningTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '35', отсутствует открывающий тег");
+        QCOMPARE(exception, "Для заголовка, который заканчивается на позиции '36', отсутствует открывающий тег");
     }
 
     QCOMPARE(headersList.count(), 1);
@@ -691,7 +691,7 @@ void findHeaders_tests::commentedNestedHeaderClosingTag()
     }
     catch(QString exception)
     {
-        QCOMPARE(exception, "Для заголовка, который начинается на позиции '18', отсутствует закрывающий тег");
+        QCOMPARE(exception, "Для заголовка, который начинается на позиции '19', отсутствует закрывающий тег");
     }
 
     QCOMPARE(headersList.count(), 1);
