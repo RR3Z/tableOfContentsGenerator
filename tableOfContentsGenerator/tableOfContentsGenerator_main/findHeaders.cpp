@@ -6,16 +6,16 @@
 #include "findHeaders.h"
 
 QRegularExpression correctHeader("<h([1-6])[^>]*>(.*?)</h\\1>", QRegularExpression::DotMatchesEverythingOption);
-QRegularExpression openTagHeader("<h([1-6])[^>]*>", QRegularExpression::DotMatchesEverythingOption);
-QRegularExpression closeTagHeader("</h([1-6])>", QRegularExpression::DotMatchesEverythingOption);
+QRegularExpression openTagHeader("<h([1-6])[^>]*>");
+QRegularExpression closeTagHeader("</h([1-6])>");
 QRegularExpression comment("<!--(.*?)-->", QRegularExpression::DotMatchesEverythingOption);
 
 void findCorrectHeaders(const QString& htmlCode, QList<Header>& headersList)
 {
     Header header;
     QList<int> tagHeadersPos;
-    static QRegularExpression commentedOpenTagHeader("<!--\\s*<h([1-6])[^>]*>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
-    static QRegularExpression commentedCloseTagHeader("<!--\\s*</h([1-6])>\\s*-->", QRegularExpression::DotMatchesEverythingOption);
+    static QRegularExpression commentedOpenTagHeader("<!--\\s*<h([1-6])[^>]*>\\s*-->");
+    static QRegularExpression commentedCloseTagHeader("<!--\\s*</h([1-6])>\\s*-->");
 
     // Найти все корректно заданные h заголовки в HTML-коде
     QRegularExpressionMatchIterator matchIterator = correctHeader.globalMatch(htmlCode);
